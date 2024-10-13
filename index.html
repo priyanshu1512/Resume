@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanshu Kumar Ojha - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Portfolio.</div>
+        <nav>
+    <ul>
+        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
+        <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+        <li><a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+</nav>
+        <button id="theme-toggle" class="btn">Toggle Dark Theme</button>
+    </header>
+
+
+    <section id="home">
+        <div class="intro sr-slideInLeft">
+            <h2>Hello,</h2>
+            <h1>I'm Priyanshu Kumar Ojha</h1>
+            <h3>Android Developer</h3>
+            <p>From India</p>
+            <a href="#contact" class="btn">Hire Me</a>
+        </div>
+        <div class="profile-pic sr-fadeInScale">
+            <img src="profile.jpg" alt="Priyanshu Kumar Ojha">
+        </div>
+    </section>
+
+    <section id="about" >
+        <h2 class="sr-slideInLeft"><i class="fas fa-user"></i> About Me</h2>
+        <p>I am a B.Tech CSE student and a certified AWS Cloud Practitioner with a passion for problem-solving. I have hands-on experience in Android development using Kotlin, Java, and Spring Boot. I am seeking an internship or entry-level position where I can leverage my skills and contribute to innovative solutions.</p>
+    </section>
+
+<section id="skills">
+    <h2 class="sr-rotateIn"><i class="fas fa-code"></i>Skills</h2>
+    <table class="skills-table">
+        <tr>
+            <th>Programming Languages</th>
+            <th>Cloud Computing</th>
+            <th>Databases</th>
+            <th>Tools/Frameworks/Libraries</th>
+            <th>Operating System</th>
+        </tr>
+        <tr>
+            <td>
+                Java  <i class="fab fa-java"></i><br>
+                Kotlin <i class="fab fa-android"></i>
+            </td>
+            <td>AWS Cloud <i class="fab fa-aws"></i></td>
+            <td>
+                MySQL<br>
+                MongoDB<br>
+                PostgreSQL
+            </td>
+            <td>
+                Spring Boot<br>
+                MVVM<br>
+                Jetpack<br>
+                Firebase<br>
+                REST APIs
+            </td>
+            <td>
+                Windows <i class="fab fa-windows"></i><br>
+                Linux <i class="fab fa-linux"></i>
+            </td>
+        </tr>
+    </table>
+</section>
+
+    <section id="projects">
+  <h2 class="sr-slideInLeft"><i class="fas fa-project-diagram"></i> Projects</h2>
+  <div class="projects-container">
+    <div class="project-box sr-fadeInScale"onclick="showProjectDetails('journey-junction')">
+      <i class="fas fa-project-diagram project-icon"></i>
+      <h3>Journey Junction</h3>
+      <p>Graph Representation of Flight Routes. Graph Algorithms for Route Optimization: Dijkstra's algorithm to find the shortest route between two locations for a plane.</p>
+    </div>
+    <div class="project-box sr-fadeInScale"onclick="showProjectDetails('sustainagrow')">
+      <i class="fab fa-aws project-icon"></i>
+      <h3>SustainaGrow</h3>
+      <p>Integrated IoT sensors seamlessly with AWS services including S3, SNS, CloudWatch, Lambda, and Quick Sight. Enabled real-time data analysis and proactive alerts for farmers, enhancing decision-making capabilities.</p>
+    </div>
+    <div class="project-box sr-fadeInScale" onclick="showProjectDetails('towtechsol')">
+      <i class="fab fa-android project-icon"></i>
+      <h3>TowTechSol</h3>
+      <p>Kotlin Application for roadside assistance, enabling users to find nearby service stations, request help, and facilitate fuel delivery. Implemented real-time location tracking using GPS and integrated communication features.</p>
+    </div>
+  </div>
+</section>
+ <section id="certifications">
+   <h2 class="sr-rotateIn">Certifications</h2>
+    <d id="certifications">
+    <div class="certifications-container">
+        <div class="certification-box" onclick="showCertificationDetails('aws-cloud-practitioner')">
+          <span class="clickable-icon"></span>
+            <h3>AWS Certified Cloud Practitioner</h3>
+            <a href="https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url" target="_blank" class="view-certificate">View Certificate</a>
+        </div>
+        <div class="certification-box" onclick="showCertificationDetails('generative-ai')">
+          <span class="clickable-icon"></span>
+            <h3>Level 3 Generative AI: Prompt Engineering</h3>
+            <a href="https://www.cloudskillsboost.google/public_profiles/8da9507c-bba1-4443-8d44-a4d6d56ebc42" target="_blank" class="view-certificate">View Certificate</a>
+        </div>
+        <div class="certification-box" onclick="showCertificationDetails('algorithmic-toolbox')">
+          <span class="clickable-icon"></span>
+            <h3>Algorithmic Toolbox | Coursera</h3>
+            <a href="https://www.coursera.org/account/accomplishments/verify/G22DHB7GPUAH?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course" target="_blank" class="view-certificate">View Certificate</a>
+        </div>
+    </div>
+</section>
+
+    <section id="contact" >
+        <h2><i class="fas fa-envelope"></i> Contact</h2>
+        <p>Email: <a href="mailto:priyanshuojha485@gmail.com">priyanshuojha485@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/priyanshu-kumar-ojha">Priyanshu Kumar Ojha</a></p>
+        <p>Phone: +91 9041989443</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Priyanshu Kumar Ojha. All rights reserved.</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modal-details"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+</body>
+</html>
