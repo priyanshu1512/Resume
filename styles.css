@@ -698,3 +698,137 @@ body, header, nav ul li a, #home, #about, #skills, #projects, #contact, footer, 
 .dark-theme .project-box:nth-child(2) .project-icon {
   color: #FF9900; /* Keep AWS orange in dark theme */
 }
+/* Add these new styles to styles.css */
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Improved navigation for mobile */
+    header {
+        padding: 0.5rem;
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    /* Better home section layout */
+    #home {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .intro {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .intro h1 {
+        font-size: 2rem;
+    }
+
+    .profile-pic img {
+        width: 200px;
+        height: 200px;
+        margin: 1rem auto;
+    }
+
+    /* Improved skills table for mobile */
+    .skills-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    /* Better project and certification boxes */
+    .project-box, .certification-box {
+        min-width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    /* Modal improvements for mobile */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        padding: 15px;
+    }
+}
+
+/* New Interactive Features */
+
+/* Ripple effect for buttons */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.btn:active::after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* Tilt effect for project and certification boxes */
+.project-box, .certification-box {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, #4ecca3, #45b7a0);
+    z-index: 9999;
+}
+
+/* Floating Labels for Contact Form */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.form-group label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    background: #fff;
+    padding: 0 5px;
+    font-size: 12px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
