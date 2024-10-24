@@ -163,3 +163,109 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+// Add these new interactive features to script.js
+
+// Scroll Progress Indicator
+window.addEventListener('scroll', () => {
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress';
+    document.body.appendChild(scrollProgress);
+    
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const width = (scrollTop / height) * 100;
+    scrollProgress.style.width = width + '%';
+});
+
+// Tilt effect for project and certification boxes
+document.querySelectorAll('.project-box, .certification-box').forEach(box => {
+    box.addEventListener('mousemove', (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        box.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    box.addEventListener('mouseleave', () => {
+        box.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    });
+});
+
+// Smooth scroll for navigation
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+// Lazy loading for images
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+});
+
+// Add touch support for mobile devices
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const difference = touchEndX - touchStartX;
+    
+    if (Math.abs(difference) > swipeThreshold) {
+        if (difference > 0) {
+            // Swipe right - previous section
+            navigateSections('prev');
+        } else {
+            // Swipe left - next section
+            navigateSections('next');
+        }
+    }
+}
+
+function navigateSections(direction) {
+    const sections = Array.from(document.querySelectorAll('section'));
+    const currentSection = sections.find(section => {
+        const rect = section.getBoundingClientRect();
+        return rect.top >= 0 && rect.top <= window.innerHeight;
+    });
+    
+    if (currentSection) {
+        const currentIndex = sections.indexOf(currentSection);
+        const targetIndex = direction === 'next' ? 
+            Math.min(currentIndex + 1, sections.length - 1) : 
+            Math.max(currentIndex - 1, 0);
+            
+        sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+}
