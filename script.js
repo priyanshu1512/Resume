@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
         interval: 200,
         distance: '20px'
     });
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    themeToggleBtn.addEventListener('click', function () {
+    const themeToggleCheckbox = document.getElementById('theme-toggle-checkbox');
+    themeToggleCheckbox.addEventListener('change', function () {
         document.body.classList.toggle('dark-theme');
 
         // Toggle dark theme for all sections
