@@ -174,8 +174,8 @@ h2 {
 }
 .project-icon {
     position: absolute;
-    top: 10px;
-    left: 200px;
+    top: 220px;
+    left: 390px;
     font-size: 2rem;
 }
 
@@ -186,9 +186,9 @@ h2 {
 
 /* SustainaGrow icon (AWS) */
 .project-box:nth-child(2) .project-icon {
-    color: #FF9900; /* AWS Orange */
+    color: #FF9900; /* AWS Orange */ 
 }
-
+ 
 /* TowTechSol icon (Android) */
 .project-box:nth-child(3) .project-icon {
     color: #3DDC84; /* Android Green */
@@ -320,6 +320,64 @@ a:hover {
     transform: scale(0.9);
     opacity: 0;
 }
+/* Enhanced Modal Styles */
+.project-modal-content {
+    padding: 20px;
+}
+
+.project-modal-content h3 {
+    color: #007bff;
+    margin: 20px 0 10px 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+.project-modal-content h4 {
+    color: #333;
+    margin: 15px 0 10px 0;
+}
+
+.project-modal-content ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.project-modal-content ul li {
+    margin: 8px 0;
+    position: relative;
+}
+
+.project-modal-content ul li:before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    position: absolute;
+    left: -15px;
+}
+
+.project-modal-content .feature-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}  
+    
+.dark-theme .project-modal-content h3 {
+    color: #64ffda;
+    border-bottom-color: #444;
+}
+
+.dark-theme .project-modal-content h4 {
+    color: #e0e0e0;
+}
+
+.dark-theme .project-modal-content .feature-section {
+    background: #2c3e50;
+}
+
+.dark-theme .project-modal-content ul li:before {
+    color: #64ffda;
+}
 
 .modal.active .modal-content {
     transform: scale(1);
@@ -376,6 +434,76 @@ a:hover {
     background: linear-gradient(to right, #0056b3, #004085);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: #24292e;
+    color: #fff !important;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.github-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.github-btn:hover:before {
+    left: 100%;
+}
+
+.github-btn:hover {
+    background: #2b3137;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.github-btn i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* Dark theme support */
+.dark-theme .github-btn {
+    background: #238636;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .github-btn:hover {
+    background: #2ea043;
+}
+
+/* Adjust project box styling to accommodate the button */
+.project-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.project-box p {
+    margin-bottom: auto;
+    padding-bottom: 15px;
 }
 /* Dark Theme Styles with Linear Gradients */
 body.dark-theme {
