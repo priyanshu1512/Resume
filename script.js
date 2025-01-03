@@ -5,36 +5,127 @@ document.addEventListener('DOMContentLoaded', function() {
 function showProjectDetails(projectId) {
     const projectDetails = {
         'journey-junction': {
-            title: 'Journey Junction',
-            description: 'Graph Representation of Flight Routes. Graph Algorithms for Route Optimization: Dijkstra’s algorithm to find the shortest route between two locations for a plane.'
+            title: 'Data Structure and Algorithm Visualizer (Java)',
+            description: `
+                <div class="project-modal-content">
+                    <h3>Overview</h3>
+                    <p>A Java-based tool designed to provide an intuitive and interactive way to understand common data structures and algorithms.</p>
+
+                    <h3>Key Features</h3>
+                    <div class="feature-section">
+                        <h4>Data Structures</h4>
+                        <ul>
+                            <li><strong>Stack:</strong> Visualizes stack operations like push, pop, and peek</li>
+                            <li><strong>Queue:</strong> Demonstrates enqueue and dequeue operations</li>
+                            <li><strong>Array:</strong> Showcases dynamic updates and traversals</li>
+                            <li><strong>Binary Search Tree (BST):</strong> Illustrates insertion, search, and traversal operations</li>
+                        </ul>
+
+                        <h4>Sorting Algorithms</h4>
+                        <ul>
+                            <li><strong>Bubble Sort:</strong> Step-by-step visualization</li>
+                            <li><strong>Insertion Sort:</strong> Animates the sorting sequence</li>
+                            <li><strong>Selection Sort:</strong> Highlights minimum element selection</li>
+                            <li><strong>Merge Sort:</strong> Visualizes divide-and-conquer approach</li>
+                        </ul>
+
+                        <h4>Graph Algorithms</h4>
+                        <ul>
+                            <li><strong>DFS & BFS:</strong> Visual graph traversal demonstrations</li>
+                            <li><strong>Dijkstra's Algorithm:</strong> Shortest path visualization</li>
+                        </ul>
+                    </div>
+
+                    <h3>Technologies Used</h3>
+                    <p>Java, AWT, Swing</p>
+                </div>
+            `
         },
         'sustainagrow': {
-            title: 'SustainaGrow',
-            description: 'Integrated IoT sensors seamlessly with AWS services including S3, SNS, CloudWatch, Lambda, and Quick Sight. Enabled real-time data analysis and proactive alerts for farmers, enhancing decision-making capabilities.'
+            title: 'Salary Prediction App (Machine Learning)',
+            description: `
+                <div class="project-modal-content">
+                    <h3>Overview</h3>
+                    <p>A Machine Learning web application built using Python and Streamlit for real-time salary prediction based on Stack Overflow Developer Survey data.</p>
+
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Interactive salary predictions based on multiple factors</li>
+                        <li>Responsive graphs for exploring salary trends</li>
+                        <li>Multiple ML models implementation:
+                            <ul>
+                                <li>Linear Regression</li>
+                                <li>Decision Trees</li>
+                                <li>Random Forest Regression</li>
+                            </ul>
+                        </li>
+                        <li>Model optimization using GridSearchCV</li>
+                        <li>Dark and light mode support</li>
+                    </ul>
+
+                    <h3>Technologies Used</h3>
+                    <p>Python, Streamlit, Scikit-learn, Pandas, Matplotlib</p>
+                </div>
+            `
         },
         'towtechsol': {
-            title: 'TowTechSol',
-            description: 'Kotlin Application for roadside assistance, enabling users to find nearby service stations, request help, and facilitate fuel delivery. Implemented real-time location tracking using GPS and integrated communication features.'
+            title: 'Chatterly Compose (Android)',
+            description: `
+                <div class="project-modal-content">
+                    <h3>Overview</h3>
+                    <p>A feature-rich chat application built using Jetpack Compose with Firebase-powered backend services.</p>
+
+                    <h3>Key Features</h3>
+                    <div class="feature-section">
+                        <h4>Authentication</h4>
+                        <ul>
+                            <li>Secure Firebase Authentication</li>
+                            <li>Email/password login and signup</li>
+                            <li>Built-in error handling</li>
+                        </ul>
+
+                        <h4>Messaging Features</h4>
+                        <ul>
+                            <li>Real-time message synchronization</li>
+                            <li>Media file sharing capabilities</li>
+                            <li>Efficient data handling with Firebase</li>
+                        </ul>
+
+                        <h4>UI/UX</h4>
+                        <ul>
+                            <li>Modern interface with Jetpack Compose</li>
+                            <li>Light and Dark theme support</li>
+                            <li>Responsive animations</li>
+                        </ul>
+                    </div>
+
+                    <h3>Tech Stack</h3>
+                    <ul>
+                        <li><strong>Frontend:</strong> Kotlin, Jetpack Compose</li>
+                        <li><strong>Backend:</strong> Firebase (Authentication, Storage, Realtime Database)</li>
+                        <li><strong>Architecture:</strong> MVVM with Coroutines</li>
+                    </ul>
+                </div>
+            `
         }
     };
 
-    const project = projectDetails[projectId];
-   
-  if (project) {
+   const project = projectDetails[projectId];
+    if (project) {
         const modalDetails = document.getElementById('modal-details');
         const modal = document.getElementById('modal');
         const modalContent = modal.querySelector('.modal-content');
         
         modalDetails.innerHTML = `
             <h2>${project.title}</h2>
-            <p>${project.description}</p>
+            ${project.description}
         `;
         
         modal.style.display = 'flex';
-        
+          
         // Apply dark theme if body has dark-theme class
         if (document.body.classList.contains('dark-theme')) {
-            modal.classList.add('dark-theme');
+            modal.classList.add('dark-theme');  
             modalContent.classList.add('dark-theme');
             modalDetails.classList.add('dark-theme');
         }
@@ -154,14 +245,14 @@ document.addEventListener('DOMContentLoaded', function () {
         distance: '20px'
     });
     const themeToggleCheckbox = document.getElementById('theme-toggle-checkbox');
-    themeToggleCheckbox.addEventListener('change', function () {
-        document.body.classList.toggle('dark-theme');
+themeToggleCheckbox.addEventListener('change', function () {
+    document.body.classList.toggle('dark-theme');
 
-        // Toggle dark theme for all sections
-        document.querySelectorAll('header, #home, #about, #skills, #projects, #contact, footer, .btn, nav ul li a, h2, .intro, .skills-table, .project-box, .certification-box, .clickable-icon, .certification').forEach(element => {
-            element.classList.toggle('dark-theme');
-        });
+    // Toggle dark theme for all sections including certifications
+    document.querySelectorAll('header, #home, #about, #skills, #projects, #certifications, #contact, footer, .btn, nav ul li a, h2, .intro, .skills-table, .project-box, .certification-box, .clickable-icon, .certification, .view-certificate').forEach(element => {
+        element.classList.toggle('dark-theme');
     });
+});
 });
 // Add these new interactive features to script.js
 
