@@ -257,16 +257,20 @@ themeToggleCheckbox.addEventListener('change', function () {
 // Add these new interactive features to script.js
 
 // Scroll Progress Indicator
+let ticking = false;
 window.addEventListener('scroll', () => {
-    const scrollProgress = document.createElement('div');
-    scrollProgress.className = 'scroll-progress';
-    document.body.appendChild(scrollProgress);
-    
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const width = (scrollTop / height) * 100;
-    scrollProgress.style.width = width + '%';
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            scrollProgress.style.width = (scrollTop / height) * 100 + '%';
+            ticking = false;
+        });
+        ticking = true;
+    }
 });
+
 
 // Tilt effect for project and certification boxes
 document.querySelectorAll('.project-box, .certification-box').forEach(box => {
