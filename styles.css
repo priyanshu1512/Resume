@@ -825,23 +825,33 @@ body, header, nav ul li a, #home, #about, #skills, #projects, #contact, footer, 
     transition: all 0.6s ease;
 }
 @media (max-width: 768px) {
-    #home {
+    body {
+        padding: 0.5rem;
+    }
+    header {
         flex-direction: column;
-        text-align: center;
+        align-items: center;
     }
-
-    .intro, .profile-pic {
-        max-width: 100%;
-    }
-
     .projects-container, .certifications-container {
         flex-direction: column;
     }
-
     .project-box, .certification-box {
         min-width: 100%;
     }
 }
+@media (max-width: 480px) {
+    .intro h1 {
+        font-size: 1.5rem;
+    }
+    .btn {
+        font-size: 0.8rem;
+    }
+    .profile-pic img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
 /* Zoom effect for sections */
 #about, #skills, #projects, #certifications, #contact {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
