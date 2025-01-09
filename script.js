@@ -360,3 +360,7 @@ function navigateSections(direction) {
         sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
     }
 }
+const isMobile = window.innerWidth <= 768;
+if (isMobile) {
+    ScrollReveal().destroy();
+}
