@@ -120,31 +120,79 @@ h2 {
     margin-bottom: 1rem;
 }
 
+/* Keyframes for slide-in and fade-in animation */
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Starts slightly lower */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Moves to original position */
+    }
+}
+
+/* Keyframes for hover glow effect */
+@keyframes glowEffect {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0);
+    }
+}
+
+/* Base table styles for light theme */
 .skills-table {
     width: 100%;
     border-collapse: collapse;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: #ffffff;
+    border: 1px solid #ccc;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideFadeIn 1s ease-out; /* Slide and fade-in animation */
     overflow: hidden;
-    margin-bottom: 2rem;
-    border: 1px solid #dee2e6;
 }
 
-.skills-table th, .skills-table td {
+/* Table headers */
+.skills-table th {
+    background-color: #f8f9fa;
+    color: #343a40;
     padding: 12px;
     text-align: left;
-    vertical-align: top;
+    border-bottom: 2px solid #dee2e6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.skills-table th {
-    background-color: #f1f3f5;
-    font-weight: bold;
-    color: #495057;
-}
-
+/* Table cells */
 .skills-table td {
+    padding: 10px;
     color: #495057;
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* Hover effect for the entire table */
+
+
+/* Hover effect for table headers */
+.skills-table th:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Hover effect for table cells */
+.skills-table td:hover {
+    
+    color: #007bff;
+    box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
 
 .skills-table tr:not(:last-child) th,
 .skills-table tr:not(:last-child) td {
@@ -545,8 +593,8 @@ nav.dark-theme ul li a:hover {
     color: #ffffff;
 }
 
-#about.dark-theme, #projects.dark-theme, #contact.dark-theme {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+#about.dark-theme, #projects.dark-theme, #certifications.dark-theme,  #contact.dark-theme {
+    background: linear-gradient(135deg, #2C5364 0%, #203A43 50%, #0F2027 100%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -559,7 +607,7 @@ h2.dark-theme {
 /* ... (keep all other dark theme styles the same) ... */
 
 .skills-table.dark-theme {
-    background: linear-gradient(135deg, #34495e 20%, #2c3e50 80%);
+    background: linear-gradient(135deg, #2c3e50 100%, #34495e 0%);
     border: 1px solid #4a5568;
 }
 
@@ -574,7 +622,7 @@ h2.dark-theme {
   border: 1px solid #4a5568
 }
 #skills.dark-theme {
-    background: linear-gradient(135deg, #2c3e50 90%, #34495e 10%);
+    background: linear-gradient(135deg, #2C5364 0%, #203A43 50%, #0F2027 100%);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 2rem;
@@ -585,16 +633,46 @@ h2.dark-theme {
 /* ... (keep all other dark theme styles the same) ... */
 
 .project-box.dark-theme, .certification-box.dark-theme {
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
     color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     border: 1px solid #4a5568;
 }
 
+/* Keyframes for zoom and glow */
+@keyframes zoomGlow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(52, 73, 94, 0.5);
+    }
+    100% {
+        transform: scale(1.1); /* Zoom in */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 15px rgba(52, 152, 219, 0.8); /* Add glow */
+        border: 2px solid rgba(52, 152, 219, 0.7);
+    }
+}
+
 .project-box.dark-theme:hover, .certification-box.dark-theme:hover {
     background: linear-gradient(135deg, #3a506b 0%, #34495e 100%);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-5px);
+    animation: zoomGlow 0.4s ease forwards; /* One-time zoom and glow animation */
+    transition: background 0.4s ease; /* Smooth background transition */
+}
+
+/* Glowing aura effect */
+.project-box.dark-theme:hover::before, .certification-box.dark-theme:hover::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 12px;
+    background: linear-gradient(45deg, rgba(52, 152, 219, 0.5), rgba(41, 128, 185, 0.5));
+    opacity: 0.8;
+    filter: blur(10px);
+    z-index: -1;
+    transition: opacity 0.4s ease;
 }
 
 .clickable-icon.dark-theme {
