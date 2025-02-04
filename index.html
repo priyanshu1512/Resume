@@ -247,5 +247,30 @@
 
     <script src="script.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
+  <!-- Add this right before the closing </body> tag -->
+<div class="chat-container">
+    <div class="chat-icon" id="chatIcon">
+        <i class="fas fa-comment"></i>
+    </div>
+    <div class="chat-box" id="chatBox">
+        <div class="chat-header">
+            <h3>Portfolio Assistant</h3>
+            <button class="minimize-btn" id="minimizeChat">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                Hi! I'm Priyanshu's portfolio AI assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your question...">
+            <button id="sendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
