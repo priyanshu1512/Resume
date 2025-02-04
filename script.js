@@ -368,3 +368,152 @@ const isMobile = window.innerWidth <= 768;
 if (isMobile) {
     ScrollReveal().destroy();
 }
+document.addEventListener('DOMContentLoaded', function() {
+    const chatIcon = document.getElementById('chatIcon');
+    const chatBox = document.getElementById('chatBox');
+    const minimizeChat = document.getElementById('minimizeChat');
+    const userInput = document.getElementById('userInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+
+    // Comprehensive FAQ Database
+    const faqDatabase = {
+        'keywords': {
+            'about': {
+                keywords: ['who are you', 'introduce', 'background', 'profile'],
+                response: `I'm Priyanshu Kumar Ojha, a B.Tech Computer Science student at Bennett University with a CGPA of 8.93. I'm passionate about software development, cloud computing, and machine learning.`,
+                links: []
+            },
+            'education': {
+                keywords: ['study', 'university', 'college', 'education'],
+                response: `Studying B.Tech in Computer Science at Bennett University (2022-2026). Completed Class XII from Army Public School with 92%. Current CGPA: 8.93`,
+                links: []
+            },
+            'skills': {
+                keywords: ['programming', 'tech', 'languages', 'frameworks','skills'],
+                response: `Programming Languages: Java (Advanced), Kotlin (Advanced), Python (Intermediate)
+Cloud: AWS Cloud, Firebase
+Databases: MySQL, MongoDB, PostgreSQL
+Frameworks: Jetpack Compose, MVVM, REST APIs`,
+                links: []
+            },
+            'projects': {
+                keywords: ['project', 'work', 'development'],
+                response: `Key Projects:
+1. Chat Application (Kotlin): Firebase-integrated messaging app
+2. Salary Prediction App (Machine Learning): Real-time salary predictions with 91% accuracy
+3. DSA Visualizer (Java): Interactive algorithm and data structure visualization`,
+                links: {
+                    'Chat App': 'https://github.com/priyanshu1512/kotlinappchatterly',
+                    'Salary Prediction': 'https://github.com/priyanshu1512/Salary-Prediction-',
+                    'DSA Visualizer': 'https://github.com/priyanshu1512/dsaproject'
+                }
+            },
+            'certifications': {
+                keywords: ['certificate', 'certification', 'credentials'],
+                response: `Certifications:
+1. AWS Certified Cloud Practitioner
+2. Improving Deep Neural Networks (Coursera)
+3. Algorithmic Toolbox (Coursera)`,
+                links: {
+                    'AWS Certification': 'https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url',
+                    'Coursera Profile': 'https://www.coursera.org/user/profile'
+                }
+            },
+            'contact': {
+                keywords: ['reach', 'contact', 'email', 'phone', 'connect'],
+                response: `Contact Details:
+- Email: priyanshuojha485@gmail.com
+- Phone: +91 9041989443
+- Location: Noida
+- LinkedIn: Priyanshu Kumar Ojha
+- LeetCode: priyanshuplays`,
+                links: {
+                    'LinkedIn': 'https://www.linkedin.com/in/priyanshu-kumar-ojha/',
+                    'LeetCode': 'https://leetcode.com/priyanshuplays/'
+                }
+            },
+            'achievements': {
+                keywords: ['achievement', 'contest', 'award', 'accomplishment','coding','leetcode'],
+                response: `Key Achievements:
+- 250+ coding problems solved on platforms like LeetCode
+- LeetCode rating of 1775+, top 10% globally
+- AWHO Scholarships for academic excellence (1 lakh rupees)
+- Participated in 10+ coding contests`,
+                links: []
+            }
+        },
+        'default': {
+            response: "I'm an AI assistant for Priyanshu's portfolio. Ask me about his skills, projects, education, or contact information. Try keywords like 'skills', 'projects', or 'contact'.",
+            links: []
+        }
+    };
+
+    function findBestResponse(message) {
+        const lowercaseMsg = message.toLowerCase();
+        
+        for (let category in faqDatabase.keywords) {
+            const keywordSet = faqDatabase.keywords[category];
+            
+            for (let keyword of keywordSet.keywords) {
+                if (lowercaseMsg.includes(keyword)) {
+                    return {
+                        response: keywordSet.response,
+                        links: keywordSet.links || {}
+                    };
+                }
+            }
+        }
+        
+        return faqDatabase.default;
+    }
+
+    function appendMessage(sender, text, links = {}) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        messageDiv.innerHTML = text;
+
+        // Add links if available
+        if (Object.keys(links).length > 0) {
+            const linksDiv = document.createElement('div');
+            linksDiv.className = 'message-links';
+            Object.entries(links).forEach(([title, url]) => {
+                const linkElem = document.createElement('a');
+                linkElem.href = url;
+                linkElem.textContent = title;
+                linkElem.target = '_blank';
+                linksDiv.appendChild(linkElem);
+            });
+            messageDiv.appendChild(linksDiv);
+        }
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function processMessage() {
+        const message = userInput.value.trim();
+        if (message === '') return;
+
+        appendMessage('user', message);
+        userInput.value = '';
+
+        setTimeout(() => {
+            const result = findBestResponse(message);
+            appendMessage('bot', result.response, result.links);
+        }, 500);
+    }
+
+    sendMessage.addEventListener('click', processMessage);
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') processMessage();
+    });
+
+    chatIcon.addEventListener('click', () => {
+        chatBox.style.display = chatBox.style.display === 'none' || chatBox.style.display === '' ? 'flex' : 'none';
+    });
+
+    minimizeChat.addEventListener('click', () => {
+        chatBox.style.display = 'none';
+    });
+});
