@@ -107,7 +107,43 @@ function showProjectDetails(projectId) {
                     </ul>
                 </div>
             `
+        },
+      'recipe-explorer': {
+            title: 'Recipe and Book Explorer App',
+            description: `
+                <div class="project-modal-content">
+                    <h3>Overview</h3>
+                    <p>An Android app showcasing recipes and books using modern Android development practices.</p>
+
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Tabbed Navigation:</strong> Switch between Recipes and Books categories</li>
+                        <li><strong>Recipe Categories:</strong> Browse various food categories with images and descriptions</li>
+                        <li><strong>Book Collection:</strong> Explore popular books with cover images and author details</li>
+                        <li><strong>Detail Views:</strong> View detailed information about each recipe category</li>
+                        <li><strong>Modern UI:</strong> Built with Material Design 3 components</li>
+                    </ul>
+
+                    <h3>Technologies Used</h3>
+                    <ul>
+                        <li><strong>Language:</strong> Kotlin</li>
+                        <li><strong>UI Framework:</strong> Jetpack Compose</li>
+                        <li><strong>Architecture:</strong> MVVM</li>
+                        <li><strong>Network:</strong> Retrofit for API calls</li>
+                        <li><strong>Image Loading:</strong> Coil for asynchronous image loading</li>
+                        <li><strong>Navigation:</strong> Jetpack Navigation Compose</li>
+                        <li><strong>Concurrency:</strong> Kotlin Coroutines</li>
+                    </ul>
+
+                    <h3>APIs Used</h3>
+                    <ul>
+                        <li>TheMealDB API: <a href="https://www.themealdb.com/api/json/v1/1/" target="_blank">View API</a></li>
+                        <li>OpenLibrary API: <a href="https://openlibrary.org/search.json" target="_blank">View API</a></li>
+                    </ul>
+                </div>
+            `
         }
+      
     };
 
    const project = projectDetails[projectId];
