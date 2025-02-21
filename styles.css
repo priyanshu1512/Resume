@@ -664,27 +664,6 @@ h2.dark-theme {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     border: 1px solid #4a5568;
 }
-
-/* Keyframes for zoom and glow */
-@keyframes zoomGlow {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        border: 2px solid rgba(52, 73, 94, 0.5);
-    }
-    100% {
-        transform: scale(1.1); /* Zoom in */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 15px rgba(52, 152, 219, 0.8); /* Add glow */
-        border: 2px solid rgba(52, 152, 219, 0.7);
-    }
-}
-
-.project-box.dark-theme:hover, .certification-box.dark-theme:hover {
-    background: linear-gradient(135deg, #3a506b 0%, #34495e 100%);
-    animation: zoomGlow 0.4s ease forwards; /* One-time zoom and glow animation */
-    transition: background 0.4s ease; /* Smooth background transition */
-}
-
 /* Glowing aura effect */
 .project-box.dark-theme:hover::before, .certification-box.dark-theme:hover::before {
     content: '';
@@ -2009,4 +1988,53 @@ header {
 
 .chat-input button:hover {
   opacity: 0.9;
+}
+.container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  inset: -145%;
+  rotate: -45deg;
+  background: #000000;
+  background-image: radial-gradient(
+      4px 100px at 0px 235px,
+      rgb(255, 140, 17),
+      #0000
+    ),
+    radial-gradient(4px 100px at 300px 235px, rgb(255, 119, 0), #884e2800),
+    radial-gradient(
+      1.5px 1.5px at 150px 117.5px,
+      rgb(255, 144, 9) 100%,
+      #0000 150%
+    );
+  background-size: 300px 235px;
+  animation: hi 150s linear infinite;
+}
+
+@keyframes hi {
+  0% {
+    background-position: 0px 220px, 3px 220px, 151.5px 337.5px;
+  }
+  to {
+    background-position: 0px 6800px, 3px 6800px, 151.5px 6917.5px;
+  }
+}
+body.dark-theme .container {
+  display: block;
+}
+
+body:not(.dark-theme) .container {
+  display: none;
+}
+body.dark-theme .container {
+  display: block;
+}
+
+body:not(.dark-theme) .container {
+  display: none;
 }
