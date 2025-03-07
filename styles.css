@@ -233,7 +233,7 @@ h2 {
     position: relative;
     min-width: 0; /* Prevent overflow issues */
     max-width: 100%; /* Ensure it fits container */
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: #ffffff; /* White background */
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -242,6 +242,48 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+/* Project box title */
+.project-box h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Tags (like Kotlin, Jetpack Compose) */
+.project-box .tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-box .tags span {
+    background: #e3f2fd; /* Light blue background for tags */
+    color: #1e88e5; /* Blue text */
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.project-box p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+    flex-grow: 1; /* Allow the description to take available space */
+}
+.dark-theme .project-box h3 {
+    color: #e0e0e0;
+}
+
+.dark-theme .project-box p {
+    color: #b0b0b0;
+}
+
+.dark-theme .project-box .tags span {
+    background: #374151; /* Darker tag background */
+    color: #60a5fa; /* Lighter blue text */
 }
 /* Project Icon Positioning */
 .project-icon {
