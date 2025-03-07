@@ -151,7 +151,8 @@ h2 {
 .skills-table {
     width: 100%;
     border-collapse: collapse;
-    background: #ffffff;
+    background: linear-gradient(135deg, #F0F5FF, #DCEAFF);
+
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -233,7 +234,7 @@ h2 {
     position: relative;
     min-width: 0; /* Prevent overflow issues */
     max-width: 100%; /* Ensure it fits container */
-    background: #ffffff; /* White background */
+    background: linear-gradient(135deg, #F8FBFF, #D6E6FF);
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -367,7 +368,8 @@ h2 {
 .certification-box {
     flex: 1;
     min-width: 300px;
-    background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #F0F5FF, #DCEAFF);
+
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
