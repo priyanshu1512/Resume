@@ -41,7 +41,7 @@ function showProjectDetails(projectId) {
                 </div>
             `
         },
-        'sustainagrow': {
+        'salarypridiction': {
             title: 'Salary Prediction App (Machine Learning)',
             description: `
                 <div class="project-modal-content">
@@ -68,7 +68,7 @@ function showProjectDetails(projectId) {
                 </div>
             `
         },
-        'towtechsol': {
+        'Chatterly': {
             title: 'Chatterly Compose (Android)',
             description: `
                 <div class="project-modal-content">
@@ -108,41 +108,73 @@ function showProjectDetails(projectId) {
                 </div>
             `
         },
-      'recipe-explorer': {
-            title: 'Recipe and Book Explorer App',
-            description: `
-                <div class="project-modal-content">
-                    <h3>Overview</h3>
-                    <p>An Android app showcasing recipes and books using modern Android development practices.</p>
+      'news-app': {
+    title: 'News Application (Android / Jetpack Compose)',
+    description: `
+        <div class="project-modal-content">
+            <h3>Overview</h3>
+            <p>This is a modern Android news application developed using Kotlin and Jetpack Compose. The app fetches real-time news from NewsAPI and presents it to users with a clean, intuitive UI. It supports filtering by category, dark/light theme, and WorkManager-based background notifications for trending headlines.</p>
 
-                    <h3>Key Features</h3>
-                    <ul>
-                        <li><strong>Tabbed Navigation:</strong> Switch between Recipes and Books categories</li>
-                        <li><strong>Recipe Categories:</strong> Browse various food categories with images and descriptions</li>
-                        <li><strong>Book Collection:</strong> Explore popular books with cover images and author details</li>
-                        <li><strong>Detail Views:</strong> View detailed information about each recipe category</li>
-                        <li><strong>Modern UI:</strong> Built with Material Design 3 components</li>
-                    </ul>
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Real-Time News Fetching:</strong> Integrates with NewsAPI to retrieve latest news articles dynamically.</li>
+                <li><strong>Category Filtering:</strong> Users can browse articles by categories like Sports, Technology, Health, Business, and more.</li>
+                <li><strong>WorkManager Integration:</strong> Periodically fetches latest headlines and displays push notifications.</li>
+                <li><strong>Elegant UI:</strong> Material Design 3 compliant UI with smooth transitions, responsive layouts, and dynamic theming.</li>
+                <li><strong>MVVM Architecture:</strong> Clean architecture that separates UI logic from business logic using ViewModel and LiveData/StateFlow.</li>
+                <li><strong>Error Handling:</strong> Graceful API failure handling with retry logic and user feedback.</li>
+            </ul>
 
-                    <h3>Technologies Used</h3>
-                    <ul>
-                        <li><strong>Language:</strong> Kotlin</li>
-                        <li><strong>UI Framework:</strong> Jetpack Compose</li>
-                        <li><strong>Architecture:</strong> MVVM</li>
-                        <li><strong>Network:</strong> Retrofit for API calls</li>
-                        <li><strong>Image Loading:</strong> Coil for asynchronous image loading</li>
-                        <li><strong>Navigation:</strong> Jetpack Navigation Compose</li>
-                        <li><strong>Concurrency:</strong> Kotlin Coroutines</li>
-                    </ul>
+            <h3>Technologies Used</h3>
+            <ul>
+                <li><strong>Language:</strong> Kotlin</li>
+                <li><strong>UI Framework:</strong> Jetpack Compose</li>
+                <li><strong>Architecture:</strong> MVVM</li>
+                <li><strong>Networking:</strong> Retrofit with Coroutines</li>
+                <li><strong>Background Tasks:</strong> WorkManager</li>
+                <li><strong>Image Loading:</strong> Coil</li>
+                <li><strong>API:</strong> NewsAPI : <a href="https://newsapi.org/" target="_blank">newsapi.org</a></li>
+            </ul>
 
-                    <h3>APIs Used</h3>
-                    <ul>
-                        <li>TheMealDB API: <a href="https://www.themealdb.com/api/json/v1/1/" target="_blank">View API</a></li>
-                        <li>OpenLibrary API: <a href="https://openlibrary.org/search.json" target="_blank">View API</a></li>
-                    </ul>
-                </div>
-            `
-        }
+            <h3>Why This Project?</h3>
+            <p>The goal of this project was to demonstrate modern Android development techniques using Jetpack Compose while building a practical, user-facing app. It provides an opportunity to explore REST API integration, UI/UX design, background services, and app architecture—all in one cohesive solution.</p>
+        </div>
+    `
+},
+      'visitor-management': {
+    title: 'Visitor Management System (Java Swing)',
+    description: `
+        <div class="project-modal-content">
+            <h3>Overview</h3>
+            <p>The Visitor Management System is a secure, Java-based desktop application that helps organizations manage and track visitor entries and exits using QR code scanning and webcam integration. Designed with Swing and AWT for GUI and connected to a MySQL database, it streamlines the visitor registration process, improves security, and keeps attendance logs digitally.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Login System:</strong> Admin login with access control to core system features.</li>
+                <li><strong>User Registration:</strong> Capture visitor details along with webcam photo capture and image preview.</li>
+                <li><strong>QR Code Generation:</strong> Automatically generates a unique QR code for each registered visitor to simplify check-in/check-out.</li>
+                <li><strong>QR Code Scanning:</strong> Mark attendance through scanning the QR code using an external device or webcam.</li>
+                <li><strong>Database Integration:</strong> All information (visitor details, QR, timestamps) is stored in a MySQL database for persistence and retrieval.</li>
+                <li><strong>Visit History:</strong> View the number of registered users and their check-in/out history.</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <ul>
+                <li><strong>Language:</strong> Java</li>
+                <li><strong>UI Framework:</strong> Java Swing and AWT</li>
+                <li><strong>Database:</strong> MySQL</li>
+                <li><strong>QR Code:</strong> ZXing (Zebra Crossing) library</li>
+                <li><strong>Webcam Integration:</strong> Webcam Capture API</li>
+                <li><strong>IDE:</strong> NetBeans</li>
+            </ul>
+
+            <h3>Why This Project?</h3>
+            <p>Traditional paper-based visitor tracking systems are inefficient and prone to errors. This project modernizes that process by introducing automation and digital logging, ensuring enhanced security, better data management, and ease of access.</p>
+        </div>
+    `
+}
+
+      
       
     };
 
