@@ -338,7 +338,7 @@ h2 {
     margin-top: 0;
 }
 /* Responsive Adjustments - Switch to grid layout on smaller screens */
-@media (max-width: 1568px) {
+@media (max-width: 1428px) {
     .projects-container {
         display: grid;  /* Switch to grid on smaller screens */
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
