@@ -203,15 +203,17 @@ h2 {
 }
 
 .projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller minimum width */
+    display: flex;  /* Change from grid to flex */
+    flex-wrap: nowrap;  /* Prevent wrapping */
     gap: 1.5rem;
     padding: 1rem;
+    overflow-x: auto;  /* Enable horizontal scrolling */
     scroll-behavior: smooth;
-    max-width: 100%; /* Ensure container doesn’t exceed viewport width */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    margin: 0 auto; /* Center the container */
+    max-width: 100%;
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
 }
+/* Enhance the scrollbar styling */
 .projects-container::-webkit-scrollbar {
     height: 8px;
 }
@@ -230,10 +232,24 @@ h2 {
     background: #555;
 }
 
+/* Dark theme scrollbar adjustments */
+.dark-theme .projects-container::-webkit-scrollbar-track {
+    background: #2c3e50;
+}
+
+.dark-theme .projects-container::-webkit-scrollbar-thumb {
+    background: #64ffda;
+}
+
+.dark-theme .projects-container::-webkit-scrollbar-thumb:hover {
+    background: #45b7a0;
+}
+
 .project-box {
-    position: relative;
-    min-width: 0; /* Prevent overflow issues */
-    max-width: 100%; /* Ensure it fits container */
+    flex: 0 0 280px;
+    min-width: 250px;  /* Slightly reduced to prevent overflow issues */
+    max-width: 350px;
+    position: relative; /* For positioning the icon */
     background: linear-gradient(135deg, #F8FBFF, #D6E6FF);
     padding: 1.5rem;
     border-radius: 10px;
@@ -243,6 +259,7 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 0.5rem;
 }
 /* Project box title */
 .project-box h3 {
@@ -320,38 +337,80 @@ h2 {
 .project-box h3 {
     margin-top: 0;
 }
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+/* Responsive Adjustments - Switch to grid layout on smaller screens */
+@media (max-width: 1568px) {
     .projects-container {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 1rem; /* Reduce gap on mobile */
+        display: grid;  /* Switch to grid on smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+        overflow-x: hidden; /* No need for horizontal scroll in grid mode */
+        gap: 1rem;
+        justify-content: space-between;
         padding: 0.5rem;
     }
-
+    
     .project-box {
-        padding: 1rem;
+        min-width: unset; /* Remove min-width constraint */
+        max-width: unset; /* Remove max-width constraint */
+        width: 100%; /* Take full width of grid cell */
+        flex: unset; /* Remove flex constraints */
     }
-
+    
     .project-icon {
         font-size: 1.5rem;
         top: 0.5rem;
         right: 0.5rem;
     }
-
+    
     .project-box h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
-
+    
     .project-box p {
-        font-size: 0.9rem;
-    } 
-
+        font-size: 0.85rem;
+    }
+    
     .github-btn {
         font-size: 0.85rem;
         padding: 6px 12px;
     }
 }
 
+/* For small mobile screens */
+@media (max-width: 1080px) {
+    .projects-container {
+        grid-template-columns: 1fr; /* Single column */
+        padding: 0.5rem;
+        width: calc(100% - 1rem);
+        margin: 0 auto;
+    }
+    
+    .project-box {
+        padding: 0.75rem;
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .project-box h3 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .project-box p {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .project-box .tags {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+    
+    .project-box .tags span {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.7rem;
+    }
+}
 @media (min-width: 769px) {
     .projects-container {
         padding: 1.5rem;
