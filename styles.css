@@ -714,7 +714,7 @@ nav.dark-theme ul li a:hover {
 }
 
 #about.dark-theme, #projects.dark-theme, #certifications.dark-theme,  #contact.dark-theme {
-    background: linear-gradient(135deg, #2C5364 0%, #203A43 50%, #0F2027 100%);
+    background-image: linear-gradient(145deg, #000000 0%, #2c3e50 74%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -742,7 +742,7 @@ h2.dark-theme {
   border: 1px solid #4a5568
 }
 #skills.dark-theme {
-    background: linear-gradient(135deg, #2C5364 0%, #203A43 50%, #0F2027 100%);
+    background-image: linear-gradient(145deg, #000000 0%, #2c3e50 74%);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 2rem;
@@ -753,7 +753,7 @@ h2.dark-theme {
 /* ... (keep all other dark theme styles the same) ... */
 
 .project-box.dark-theme, .certification-box.dark-theme {
-    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    background-image: linear-gradient(315deg, #130f40 0%, #000000 74%);
     color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     border: 1px solid #4a5568;
@@ -1571,7 +1571,7 @@ vertical-align: middle;
 
 /* Dark theme support */
 .dark-theme #leetcode {
-    background: linear-gradient(135deg, #2C5364 0%, #203A43 50%, #0F2027 100%);
+    background-image: linear-gradient(145deg, #000000 0%, #2c3e50 74%);
 }
 
 .dark-theme .leetcode-stats h3,
@@ -1580,7 +1580,7 @@ vertical-align: middle;
 }
 
 .dark-theme .badge {
-    background: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+    background-image: linear-gradient(315deg, #130f40 0%, #000000 74%);
     box-shadow: 5px 5px 15px #243342, -5px -5px 15px #3c4f66;
 }
 
