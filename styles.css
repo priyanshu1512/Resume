@@ -201,17 +201,16 @@ h2 {
 .skills-table tr:not(:last-child) td {
     border-bottom: 1px solid #d1d5db;
 }
-
 .projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller minimum width */
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
     gap: 1.5rem;
     padding: 1rem;
     scroll-behavior: smooth;
-    max-width: 100%; /* Ensure container doesn’t exceed viewport width */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    margin: 0 auto; /* Center the container */
+    
 }
+
 .projects-container::-webkit-scrollbar {
     height: 8px;
 }
@@ -231,11 +230,13 @@ h2 {
 }
 
 .project-box {
-    position: relative;
-    min-width: 0; /* Prevent overflow issues */
-    max-width: 100%; /* Ensure it fits container */
+    min-width: 300px;
     background: linear-gradient(135deg, #F8FBFF, #D6E6FF);
-    padding: 1.5rem;
+    flex: 0 0 300px; 
+    border: 2px solid #add8e6; /* Light blue border */
+    padding: 1rem;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -243,8 +244,28 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
 }
-/* Project box title */
+
+.project-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #ffffff, #f1f3f5);
+}
+
+.project-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.project-box:hover .project-image {
+    transform: scale(1.05);
+}
+
 .project-box h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1.25rem;
@@ -252,7 +273,6 @@ h2 {
     font-weight: 600;
 }
 
-/* Tags (like Kotlin, Jetpack Compose) */
 .project-box .tags {
     display: flex;
     gap: 0.5rem;
@@ -260,20 +280,61 @@ h2 {
 }
 
 .project-box .tags span {
-    background: #e3f2fd; /* Light blue background for tags */
-    color: #1e88e5; /* Blue text */
+    background: #e3f2fd;
+    color: #1e88e5;
     padding: 0.3rem 0.6rem;
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: 500;
 }
+
 .project-box p {
     font-size: 0.9rem;
     color: #555;
     margin: 0 0 1rem 0;
     line-height: 1.5;
-    flex-grow: 1; /* Allow the description to take available space */
+    flex-grow: 1;
 }
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: #24292e;
+    color: #fff !important;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.github-btn:hover {
+    background: #2b3137;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.github-btn i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* Dark Theme Styles */
+.dark-theme .project-box {
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    border: 1px solid #4a5568;
+}
+
+.dark-theme .project-box:hover {
+    background: linear-gradient(135deg, #1a2634, #2c3e50);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.9);
+}
+
 .dark-theme .project-box h3 {
     color: #e0e0e0;
 }
@@ -283,81 +344,32 @@ h2 {
 }
 
 .dark-theme .project-box .tags span {
-    background: #374151; /* Darker tag background */
-    color: #60a5fa; /* Lighter blue text */
-}
-/* Project Icon Positioning */
-.project-icon {
-    position: absolute;
-    top: 0rem;
-    right: 1rem;
-    font-size: 2rem;
+    background: #374151;
+    color: #60a5fa;
 }
 
-/* Journey Junction icon (DSA/graph) */
-.project-box:nth-child(3) .project-icon {
-    color: #4285F4; /* Google Blue */
+.dark-theme .github-btn {
+    background: #238636;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* SustainaGrow icon (AWS) */
-.project-box:nth-child(4) .project-icon {
-    color: #306998; /* AWS Orange */ 
+.dark-theme .github-btn:hover {
+    background: #2ea043;
 }
- 
-/* TowTechSol icon (Android) */
-.project-box:nth-child(1) .project-icon {
-    color: #3DDC84; /* Android Green */
-}
-.project-box:nth-child(2) .project-icon {
-    color: #3DDC84; /* Android Green */
-}
-.project-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
-}
- 
-.project-box h3 {
-    margin-top: 0;
-}
+
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1450px) {
     .projects-container {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 1rem; /* Reduce gap on mobile */
-        padding: 0.5rem;
-    }
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                overflow-x: visible; /* No horizontal scrolling */
+            }
 
-    .project-box {
-        padding: 1rem;
-    }
-
-    .project-icon {
-        font-size: 1.5rem;
-        top: 0.5rem;
-        right: 0.5rem;
-    }
-
-    .project-box h3 {
-        font-size: 1.2rem;
-    }
-
-    .project-box p {
-        font-size: 0.9rem;
-    } 
-
-    .github-btn {
-        font-size: 0.85rem;
-        padding: 6px 12px;
-    }
+            .project-box {
+                flex: none; /* Reset flex for grid */
+                min-width: auto; /* Fit grid cells */
+            }
 }
-
-@media (min-width: 769px) {
-    .projects-container {
-        padding: 1.5rem;
-    }
-}
-
 .certifications-container {
     display: flex;
     justify-content: space-between;
