@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return {r,g,b};
   }
 
-  // Lerp between two colors by t (0→1)
   function lerpColor(c1, c2, t) {
     return {
       r: Math.round(c1.r + (c2.r - c1.r) * t),
@@ -133,59 +132,62 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   }
 
-  // Collect all section color waypoints
   const colorSections = Array.from(document.querySelectorAll('[data-bgcolor]'));
-
-  // Starting color is the default white bg
   const startColor = hexToRgb('#f8fafc');
+  const startTextColor = hexToRgb('#0f172a');
 
   function updatePageColor() {
-    if (document.body.classList.contains('dark-theme')) return; // don't override dark mode
+    if (document.body.classList.contains('dark-theme')) return;
 
     const scrollY = window.scrollY;
     const winH = window.innerHeight;
 
-    // Find which two waypoints we're between
     let fromColor = startColor;
     let toColor = startColor;
+    let fromText = startTextColor;
+    let toText = startTextColor;
     let progress = 0;
 
     for (let i = 0; i < colorSections.length; i++) {
       const sec = colorSections[i];
       const rect = sec.getBoundingClientRect();
       const secTop = rect.top + scrollY;
-      const secBottom = secTop + rect.height;
 
-      // Transition starts when section top hits center of screen
       const triggerPoint = secTop - winH * 0.5;
       const endPoint = secTop + rect.height * 0.3;
 
       if (scrollY >= triggerPoint && scrollY <= endPoint) {
-        const prevBg = i === 0 ? '#f8fafc' : colorSections[i-1].dataset.bgcolor;
+        const prevBg   = i === 0 ? '#f8fafc' : colorSections[i-1].dataset.bgcolor;
+        const prevText = i === 0 ? '#0f172a' : (colorSections[i-1].dataset.textcolor || '#0f172a');
         fromColor = hexToRgb(prevBg);
-        toColor = hexToRgb(sec.dataset.bgcolor);
-        progress = Math.max(0, Math.min(1, (scrollY - triggerPoint) / (endPoint - triggerPoint)));
+        toColor   = hexToRgb(sec.dataset.bgcolor);
+        fromText  = hexToRgb(prevText);
+        toText    = hexToRgb(sec.dataset.textcolor || '#0f172a');
+        progress  = Math.max(0, Math.min(1, (scrollY - triggerPoint) / (endPoint - triggerPoint)));
         break;
       } else if (scrollY > endPoint && i === colorSections.length - 1) {
         fromColor = toColor = hexToRgb(sec.dataset.bgcolor);
-        progress = 1;
+        fromText  = toText  = hexToRgb(sec.dataset.textcolor || '#0f172a');
+        progress  = 1;
       } else if (scrollY > endPoint) {
         fromColor = hexToRgb(sec.dataset.bgcolor);
-        toColor = hexToRgb(colorSections[i+1]?.dataset.bgcolor || sec.dataset.bgcolor);
-        progress = 0;
+        toColor   = hexToRgb(colorSections[i+1]?.dataset.bgcolor || sec.dataset.bgcolor);
+        fromText  = hexToRgb(sec.dataset.textcolor || '#0f172a');
+        toText    = hexToRgb(colorSections[i+1]?.dataset.textcolor || '#0f172a');
+        progress  = 0;
       }
     }
 
-    // Eased blend
+    // Ease in-out quad
     const eased = progress < 0.5
       ? 2 * progress * progress
       : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-    const blended = lerpColor(fromColor, toColor, eased);
-    document.documentElement.style.setProperty(
-      '--page-bg',
-      `rgb(${blended.r},${blended.g},${blended.b})`
-    );
+    const bg   = lerpColor(fromColor, toColor, eased);
+    const text = lerpColor(fromText,  toText,  eased);
+
+    document.documentElement.style.setProperty('--page-bg',   `rgb(${bg.r},${bg.g},${bg.b})`);
+    document.documentElement.style.setProperty('--page-text', `rgb(${text.r},${text.g},${text.b})`);
   }
 
   // Smooth scroll listener with rAF
@@ -463,4 +465,3 @@ document.addEventListener('click', (e) => {
   const modal = document.getElementById('modal');
   if (e.target === modal) closeModal();
 });
-
