@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ─── SCROLL COLOR MORPH ────────────────────────────────────
-  // Parse hex color to {r,g,b}
   function hexToRgb(hex) {
     const r = parseInt(hex.slice(1,3),16);
     const g = parseInt(hex.slice(3,5),16);
@@ -464,3 +463,4 @@ document.addEventListener('click', (e) => {
   const modal = document.getElementById('modal');
   if (e.target === modal) closeModal();
 });
+
