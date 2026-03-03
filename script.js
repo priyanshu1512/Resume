@@ -1,587 +1,466 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Document is ready!');
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ─── SCROLL PROGRESS ───────────────────────────────────────
+  const scrollProgress = document.querySelector('.scroll-progress');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const s = document.documentElement.scrollTop;
+        if (scrollProgress) scrollProgress.style.width = (s / h) * 100 + '%';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ─── MOBILE NAV ────────────────────────────────────────────
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+
+  function openMobileNav() {
+    mobileNav.classList.add('open');
+    mobileOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    mobileOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', openMobileNav);
+  if (mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileNav);
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', closeMobileNav);
+  });
+
+  // ─── THEME TOGGLE ──────────────────────────────────────────
+  const themeToggleCheckbox = document.getElementById('theme-toggle-checkbox');
+  if (themeToggleCheckbox) {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+      themeToggleCheckbox.checked = true;
+    }
+    themeToggleCheckbox.addEventListener('change', function () {
+      document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+    });
+  }
+
+  // ─── SCROLL REVEAL ─────────────────────────────────────────
+  if (window.innerWidth > 768 && typeof ScrollReveal !== 'undefined') {
+    const sr = ScrollReveal({ duration: 900, distance: '40px', easing: 'cubic-bezier(0.5,0,0,1)', reset: false });
+    sr.reveal('.sr-fadeInScale', { origin: 'bottom', scale: 0.92, opacity: 0, delay: 150 });
+    sr.reveal('.sr-slideInLeft', { origin: 'left', distance: '80px', delay: 200 });
+    sr.reveal('.sr-slideInRight', { origin: 'right', distance: '80px', delay: 200 });
+    sr.reveal('.sr-rotateIn', { rotate: { y: 60 }, delay: 250 });
+    sr.reveal('.timeline-item', { origin: 'bottom', interval: 200 });
+    sr.reveal('.skill-card', { origin: 'bottom', interval: 100, distance: '20px' });
+    sr.reveal('.project-box, .certification-box', { origin: 'bottom', interval: 150, distance: '20px' });
+    sr.reveal('.contact-card', { origin: 'bottom', interval: 100 });
+    sr.reveal('.stats-bar', { origin: 'bottom', distance: '30px', delay: 400 });
+  } else {
+    document.querySelectorAll('.sr-fadeInScale,.sr-slideInLeft,.sr-slideInRight,.sr-rotateIn')
+      .forEach(el => el.style.visibility = 'visible');
+  }
+
+  // ─── STATS COUNTER ANIMATION ───────────────────────────────
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const isDecimal = el.dataset.decimal === 'true';
+    const duration = 1800;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out expo
+      const eased = 1 - Math.pow(2, -10 * progress);
+      const current = Math.round(eased * target);
+
+      if (isDecimal) {
+        // 893 → display as "8.93"
+        el.textContent = (current / 100).toFixed(2);
+      } else {
+        el.textContent = current.toLocaleString();
+      }
+
+      if (progress < 1) requestAnimationFrame(tick);
+      else {
+        el.textContent = isDecimal
+          ? (target / 100).toFixed(2)
+          : target.toLocaleString();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Trigger counters when stats bar enters viewport
+  const statsBar = document.getElementById('statsBar');
+  if (statsBar) {
+    const counters = statsBar.querySelectorAll('.stat-number');
+    let counted = false;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        counters.forEach((el, i) => {
+          setTimeout(() => animateCounter(el), i * 120);
+        });
+      }
+    }, { threshold: 0.4 });
+    observer.observe(statsBar);
+  }
+
+  // ─── SCROLL COLOR MORPH ────────────────────────────────────
+  // Parse hex color to {r,g,b}
+  function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return {r,g,b};
+  }
+
+  // Lerp between two colors by t (0→1)
+  function lerpColor(c1, c2, t) {
+    return {
+      r: Math.round(c1.r + (c2.r - c1.r) * t),
+      g: Math.round(c1.g + (c2.g - c1.g) * t),
+      b: Math.round(c1.b + (c2.b - c1.b) * t),
+    };
+  }
+
+  // Collect all section color waypoints
+  const colorSections = Array.from(document.querySelectorAll('[data-bgcolor]'));
+
+  // Starting color is the default white bg
+  const startColor = hexToRgb('#f8fafc');
+
+  function updatePageColor() {
+    if (document.body.classList.contains('dark-theme')) return; // don't override dark mode
+
+    const scrollY = window.scrollY;
+    const winH = window.innerHeight;
+
+    // Find which two waypoints we're between
+    let fromColor = startColor;
+    let toColor = startColor;
+    let progress = 0;
+
+    for (let i = 0; i < colorSections.length; i++) {
+      const sec = colorSections[i];
+      const rect = sec.getBoundingClientRect();
+      const secTop = rect.top + scrollY;
+      const secBottom = secTop + rect.height;
+
+      // Transition starts when section top hits center of screen
+      const triggerPoint = secTop - winH * 0.5;
+      const endPoint = secTop + rect.height * 0.3;
+
+      if (scrollY >= triggerPoint && scrollY <= endPoint) {
+        const prevBg = i === 0 ? '#f8fafc' : colorSections[i-1].dataset.bgcolor;
+        fromColor = hexToRgb(prevBg);
+        toColor = hexToRgb(sec.dataset.bgcolor);
+        progress = Math.max(0, Math.min(1, (scrollY - triggerPoint) / (endPoint - triggerPoint)));
+        break;
+      } else if (scrollY > endPoint && i === colorSections.length - 1) {
+        fromColor = toColor = hexToRgb(sec.dataset.bgcolor);
+        progress = 1;
+      } else if (scrollY > endPoint) {
+        fromColor = hexToRgb(sec.dataset.bgcolor);
+        toColor = hexToRgb(colorSections[i+1]?.dataset.bgcolor || sec.dataset.bgcolor);
+        progress = 0;
+      }
+    }
+
+    // Eased blend
+    const eased = progress < 0.5
+      ? 2 * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    const blended = lerpColor(fromColor, toColor, eased);
+    document.documentElement.style.setProperty(
+      '--page-bg',
+      `rgb(${blended.r},${blended.g},${blended.b})`
+    );
+  }
+
+  // Smooth scroll listener with rAF
+  let colorTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!colorTicking) {
+      requestAnimationFrame(() => {
+        updatePageColor();
+        colorTicking = false;
+      });
+      colorTicking = true;
+    }
+  });
+
+  // Init on load
+  updatePageColor();
+
+  // ─── SECTION PARALLAX ENTRY ────────────────────────────────
+  const sections = document.querySelectorAll('section:not(#home)');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0) scale(1)';
+        entry.target.classList.add('in-view');
+        entry.target.classList.remove('below-view');
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+
+  sections.forEach(sec => {
+    if (window.innerWidth > 768) {
+      sec.style.opacity = '0';
+      sec.style.transform = 'translateY(32px) scale(0.99)';
+      sec.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+    }
+    sectionObserver.observe(sec);
+  });
+
+  // ─── TILT EFFECT ───────────────────────────────────────────
+  document.querySelectorAll('.project-box, .certification-box').forEach(box => {
+    box.addEventListener('mousemove', (e) => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      const rotateX = (y - rect.height / 2) / 22;
+      const rotateY = (rect.width / 2 - x) / 22;
+      box.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+    box.addEventListener('mouseleave', () => { box.style.transform = ''; });
+  });
+
+  // ─── SMOOTH SCROLL NAV ─────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ─── CHAT WIDGET ───────────────────────────────────────────
+  const chatIcon = document.getElementById('chatIcon');
+  const chatBox = document.getElementById('chatBox');
+  const minimizeChat = document.getElementById('minimizeChat');
+  const userInput = document.getElementById('userInput');
+  const sendMessageBtn = document.getElementById('sendMessage');
+  const chatMessages = document.getElementById('chatMessages');
+
+  const faqDatabase = {
+    keywords: {
+      about: {
+        keywords: ['who are you', 'introduce', 'background', 'profile', 'about'],
+        response: `I'm Priyanshu Kumar Ojha, a B.Tech Computer Science student at Bennett University (CGPA: 8.93). I'm passionate about Java development, cloud computing, and building scalable systems.`,
+      },
+      experience: {
+        keywords: ['experience', 'intern', 'job', 'here technologies', 'work', 'company'],
+        response: `Priyanshu is currently an SDE Intern at HERE Technologies (June 2025–Present) in Mumbai. He works on the Map Making Automation Services team — building JUnit tests, optimizing validation rules by up to 74%, and leading schema migrations.`,
+      },
+      education: {
+        keywords: ['study', 'university', 'college', 'education', 'cgpa'],
+        response: `B.Tech Computer Science at Bennett University (2022–2026), CGPA: 8.93. Completed Class XII from Army Public School with 92%.`,
+      },
+      skills: {
+        keywords: ['programming', 'tech', 'languages', 'frameworks', 'skills'],
+        response: `Languages: Java (Advanced), Kotlin (Advanced), Python, Scala\nCloud: AWS (Certified), Firebase\nDBs: MySQL, PostgreSQL, MongoDB\nTools: Spring Boot, JUnit, Jetpack Compose, REST APIs, Git`,
+      },
+      projects: {
+        keywords: ['project', 'work', 'development', 'built'],
+        response: `Key projects:\n1. Chat App (Kotlin/Firebase)\n2. Hate Speech Recognition (AWS + BiLSTM, 83% accuracy)\n3. Salary Prediction (ML, 91% accuracy)\n4. DSA Visualizer (Java)\n5. Visitor Management System (Java/MySQL)`,
+        links: { 'GitHub': 'https://github.com/priyanshu1512' }
+      },
+      certifications: {
+        keywords: ['certificate', 'certification', 'credentials', 'aws', 'certified'],
+        response: `Certifications:\n1. AWS Certified Cloud Practitioner\n2. Generative AI: Prompt Engineering (Google)\n3. Algorithmic Toolbox (Coursera)`,
+      },
+      contact: {
+        keywords: ['reach', 'contact', 'email', 'phone', 'connect'],
+        response: `Email: priyanshuojha485@gmail.com\nPhone: +91 9041989443\nLinkedIn: Priyanshu Kumar Ojha\nLeetCode: priyanshuplays`,
+        links: {
+          'LinkedIn': 'https://www.linkedin.com/in/priyanshu-kumar-ojha/',
+          'LeetCode': 'https://leetcode.com/priyanshuplays/'
+        }
+      },
+      achievements: {
+        keywords: ['achievement', 'contest', 'award', 'accomplishment', 'coding', 'leetcode'],
+        response: `Achievements:\n- 250+ LeetCode problems solved\n- Rating 1775+, Top 10% globally\n- AWHO Scholarship for academic excellence\n- 10+ coding contests participated`,
+      }
+    },
+    default: {
+      response: "I can answer questions about Priyanshu's skills, experience, projects, education, or contact info. Try asking about 'experience', 'projects', or 'skills'!",
+    }
+  };
+
+  function findBestResponse(message) {
+    const msg = message.toLowerCase();
+    for (let cat in faqDatabase.keywords) {
+      const item = faqDatabase.keywords[cat];
+      if (item.keywords.some(kw => msg.includes(kw))) {
+        return { response: item.response, links: item.links || {} };
+      }
+    }
+    return faqDatabase.default;
+  }
+
+  function appendMessage(sender, text, links = {}) {
+    const div = document.createElement('div');
+    div.className = `message ${sender}`;
+    div.innerHTML = text.replace(/\n/g, '<br>');
+    if (Object.keys(links).length > 0) {
+      const ld = document.createElement('div');
+      ld.style.cssText = 'margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.4rem;';
+      Object.entries(links).forEach(([title, url]) => {
+        const a = document.createElement('a');
+        a.href = url; a.textContent = title; a.target = '_blank';
+        a.style.cssText = 'font-size:0.78rem;color:var(--primary);text-decoration:underline;';
+        ld.appendChild(a);
+      });
+      div.appendChild(ld);
+    }
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function processMessage() {
+    const msg = userInput.value.trim();
+    if (!msg) return;
+    appendMessage('user', msg);
+    userInput.value = '';
+    setTimeout(() => {
+      const result = findBestResponse(msg);
+      appendMessage('bot', result.response, result.links || {});
+    }, 400);
+  }
+
+  if (sendMessageBtn) sendMessageBtn.addEventListener('click', processMessage);
+  if (userInput) userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') processMessage(); });
+  if (chatIcon) chatIcon.addEventListener('click', () => {
+    chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+  });
+  if (minimizeChat) minimizeChat.addEventListener('click', () => { chatBox.style.display = 'none'; });
+
 });
 
+// ─── PROJECT MODALS ────────────────────────────────────────────
 function showProjectDetails(projectId) {
-    const projectDetails = {
-        'journey-junction': {
-            title: 'Data Structure and Algorithm Visualizer (Java)',
-            description: `
-                <div class="project-modal-content">
-                    <h3>Overview</h3>
-                    <p>A Java-based tool designed to provide an intuitive and interactive way to understand common data structures and algorithms.</p>
-
-                    <h3>Key Features</h3>
-                    <div class="feature-section">
-                        <h4>Data Structures</h4>
-                        <ul>
-                            <li><strong>Stack:</strong> Visualizes stack operations like push, pop, and peek</li>
-                            <li><strong>Queue:</strong> Demonstrates enqueue and dequeue operations</li>
-                            <li><strong>Array:</strong> Showcases dynamic updates and traversals</li>
-                            <li><strong>Binary Search Tree (BST):</strong> Illustrates insertion, search, and traversal operations</li>
-                        </ul>
-
-                        <h4>Sorting Algorithms</h4>
-                        <ul>
-                            <li><strong>Bubble Sort:</strong> Step-by-step visualization</li>
-                            <li><strong>Insertion Sort:</strong> Animates the sorting sequence</li>
-                            <li><strong>Selection Sort:</strong> Highlights minimum element selection</li>
-                            <li><strong>Merge Sort:</strong> Visualizes divide-and-conquer approach</li>
-                        </ul>
-
-                        <h4>Graph Algorithms</h4>
-                        <ul>
-                            <li><strong>DFS & BFS:</strong> Visual graph traversal demonstrations</li>
-                            <li><strong>Dijkstra's Algorithm:</strong> Shortest path visualization</li>
-                        </ul>
-                    </div>
-
-                    <h3>Technologies Used</h3>
-                    <p>Java, AWT, Swing</p>
-                </div>
-            `
-        },
-        'salarypridiction': {
-            title: 'Salary Prediction App (Machine Learning)',
-            description: `
-                <div class="project-modal-content">
-                    <h3>Overview</h3>
-                    <p>A Machine Learning web application built using Python and Streamlit for real-time salary prediction based on Stack Overflow Developer Survey data.</p>
-
-                    <h3>Key Features</h3>
-                    <ul>
-                        <li>Interactive salary predictions based on multiple factors</li>
-                        <li>Responsive graphs for exploring salary trends</li>
-                        <li>Multiple ML models implementation:
-                            <ul>
-                                <li>Linear Regression</li>
-                                <li>Decision Trees</li>
-                                <li>Random Forest Regression</li>
-                            </ul>
-                        </li>
-                        <li>Model optimization using GridSearchCV</li>
-                        <li>Dark and light mode support</li>
-                    </ul>
-
-                    <h3>Technologies Used</h3>
-                    <p>Python, Streamlit, Scikit-learn, Pandas, Matplotlib</p>
-                </div>
-            `
-        },
-        'Chatterly': {
-            title: 'Chatterly Compose (Android)',
-            description: `
-                <div class="project-modal-content">
-                    <h3>Overview</h3>
-                    <p>A feature-rich chat application built using Jetpack Compose with Firebase-powered backend services.</p>
-
-                    <h3>Key Features</h3>
-                    <div class="feature-section">
-                        <h4>Authentication</h4>
-                        <ul>
-                            <li>Secure Firebase Authentication</li>
-                            <li>Email/password login and signup</li>
-                            <li>Built-in error handling</li>
-                        </ul>
-
-                        <h4>Messaging Features</h4>
-                        <ul>
-                            <li>Real-time message synchronization</li>
-                            <li>Media file sharing capabilities</li>
-                            <li>Efficient data handling with Firebase</li>
-                        </ul>
-
-                        <h4>UI/UX</h4>
-                        <ul>
-                            <li>Modern interface with Jetpack Compose</li>
-                            <li>Light and Dark theme support</li>
-                            <li>Responsive animations</li>
-                        </ul>
-                    </div>
-
-                    <h3>Tech Stack</h3>
-                    <ul>
-                        <li><strong>Frontend:</strong> Kotlin, Jetpack Compose</li>
-                        <li><strong>Backend:</strong> Firebase (Authentication, Storage, Realtime Database)</li>
-                        <li><strong>Architecture:</strong> MVVM with Coroutines</li>
-                    </ul>
-                </div>
-            `
-        },
-      'news-app': {
-    title: 'News Application (Android / Jetpack Compose)',
-    description: `
-        <div class="project-modal-content">
-            <h3>Overview</h3>
-            <p>This is a modern Android news application developed using Kotlin and Jetpack Compose. The app fetches real-time news from NewsAPI and presents it to users with a clean, intuitive UI. It supports filtering by category, dark/light theme, and WorkManager-based background notifications for trending headlines.</p>
-
-            <h3>Key Features</h3>
-            <ul>
-                <li><strong>Real-Time News Fetching:</strong> Integrates with NewsAPI to retrieve latest news articles dynamically.</li>
-                <li><strong>Category Filtering:</strong> Users can browse articles by categories like Sports, Technology, Health, Business, and more.</li>
-                <li><strong>WorkManager Integration:</strong> Periodically fetches latest headlines and displays push notifications.</li>
-                <li><strong>Elegant UI:</strong> Material Design 3 compliant UI with smooth transitions, responsive layouts, and dynamic theming.</li>
-                <li><strong>MVVM Architecture:</strong> Clean architecture that separates UI logic from business logic using ViewModel and LiveData/StateFlow.</li>
-                <li><strong>Error Handling:</strong> Graceful API failure handling with retry logic and user feedback.</li>
-            </ul>
-
-            <h3>Technologies Used</h3>
-            <ul>
-                <li><strong>Language:</strong> Kotlin</li>
-                <li><strong>UI Framework:</strong> Jetpack Compose</li>
-                <li><strong>Architecture:</strong> MVVM</li>
-                <li><strong>Networking:</strong> Retrofit with Coroutines</li>
-                <li><strong>Background Tasks:</strong> WorkManager</li>
-                <li><strong>Image Loading:</strong> Coil</li>
-                <li><strong>API:</strong> NewsAPI : <a href="https://newsapi.org/" target="_blank">newsapi.org</a></li>
-            </ul>
-
-            <h3>Why This Project?</h3>
-            <p>The goal of this project was to demonstrate modern Android development techniques using Jetpack Compose while building a practical, user-facing app. It provides an opportunity to explore REST API integration, UI/UX design, background services, and app architecture—all in one cohesive solution.</p>
+  const projectDetails = {
+    'journey-junction': {
+      title: 'DSA Visualizer (Java)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>A Java-based tool to visually understand data structures and sorting algorithms interactively.</p>
+        <h3>Key Features</h3><div class="feature-section">
+          <h4>Data Structures</h4><ul><li>Stack, Queue, Array, BST</li></ul>
+          <h4>Sorting</h4><ul><li>Bubble, Insertion, Selection, Merge Sort</li></ul>
+          <h4>Graph Algorithms</h4><ul><li>DFS, BFS, Dijkstra's Shortest Path</li></ul>
         </div>
-    `
-},
-      'visitor-management': {
-    title: 'Visitor Management System (Java Swing)',
-    description: `
-        <div class="project-modal-content">
-            <h3>Overview</h3>
-            <p>The Visitor Management System is a secure, Java-based desktop application that helps organizations manage and track visitor entries and exits using QR code scanning and webcam integration. Designed with Swing and AWT for GUI and connected to a MySQL database, it streamlines the visitor registration process, improves security, and keeps attendance logs digitally.</p>
-
-            <h3>Key Features</h3>
-            <ul>
-                <li><strong>Login System:</strong> Admin login with access control to core system features.</li>
-                <li><strong>User Registration:</strong> Capture visitor details along with webcam photo capture and image preview.</li>
-                <li><strong>QR Code Generation:</strong> Automatically generates a unique QR code for each registered visitor to simplify check-in/check-out.</li>
-                <li><strong>QR Code Scanning:</strong> Mark attendance through scanning the QR code using an external device or webcam.</li>
-                <li><strong>Database Integration:</strong> All information (visitor details, QR, timestamps) is stored in a MySQL database for persistence and retrieval.</li>
-                <li><strong>Visit History:</strong> View the number of registered users and their check-in/out history.</li>
-            </ul>
-
-            <h3>Technologies Used</h3>
-            <ul>
-                <li><strong>Language:</strong> Java</li>
-                <li><strong>UI Framework:</strong> Java Swing and AWT</li>
-                <li><strong>Database:</strong> MySQL</li>
-                <li><strong>QR Code:</strong> ZXing (Zebra Crossing) library</li>
-                <li><strong>Webcam Integration:</strong> Webcam Capture API</li>
-                <li><strong>IDE:</strong> NetBeans</li>
-            </ul>
-
-            <h3>Why This Project?</h3>
-            <p>Traditional paper-based visitor tracking systems are inefficient and prone to errors. This project modernizes that process by introducing automation and digital logging, ensuring enhanced security, better data management, and ease of access.</p>
+        <h3>Technologies</h3><p>Java, AWT, Swing</p></div>`
+    },
+    'salarypridiction': {
+      title: 'Salary Prediction App (ML)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>ML web app using Python and Streamlit for real-time salary prediction — 91% model accuracy.</p>
+        <h3>Models Used</h3><ul><li>Linear Regression</li><li>Decision Trees</li><li>Random Forest (best performer)</li></ul>
+        <h3>Technologies</h3><p>Python, Streamlit, Scikit-learn, Pandas, Matplotlib</p></div>`
+    },
+    'hate-speech': {
+      title: 'Hate Speech Recognition (AWS + AI)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>Serverless ML pipeline for detecting toxic content across 6 categories, deployed on AWS.</p>
+        <h3>Key Achievements</h3><ul><li>83% accuracy using BiLSTM neural networks</li><li>1000+ MAU with &lt;500ms latency</li><li>40% cloud cost reduction</li><li>99.9% availability</li></ul>
+        <h3>Technologies</h3><p>Python, TensorFlow/Keras, AWS SageMaker, Lambda, API Gateway, S3</p></div>`
+    },
+    'Chatterly': {
+      title: 'Chatterly – Real-Time Chat App (Android)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>Feature-rich chat app using Jetpack Compose with Firebase backend. 99.5% uptime, 35% reduced latency.</p>
+        <h3>Key Features</h3><div class="feature-section">
+          <h4>Auth</h4><ul><li>Firebase email/password auth</li></ul>
+          <h4>Messaging</h4><ul><li>Real-time Firestore sync, media sharing</li></ul>
+          <h4>Performance</h4><ul><li>40% UI improvement via Coroutines</li></ul>
         </div>
-    `
-}
-
-      
-      
-    };
-
-   const project = projectDetails[projectId];
-    if (project) {
-        const modalDetails = document.getElementById('modal-details');
-        const modal = document.getElementById('modal');
-        const modalContent = modal.querySelector('.modal-content');
-        
-        modalDetails.innerHTML = `
-            <h2>${project.title}</h2>
-            ${project.description}
-        `;
-        
-        modal.style.display = 'flex';
-          
-        // Apply dark theme if body has dark-theme class
-        if (document.body.classList.contains('dark-theme')) {
-            modal.classList.add('dark-theme');  
-            modalContent.classList.add('dark-theme');
-            modalDetails.classList.add('dark-theme');
-        }
-        
-        setTimeout(() => modal.classList.add('active'), 10);
+        <h3>Tech Stack</h3><p>Kotlin, Jetpack Compose, MVVM, Firebase, Coroutines</p></div>`
+    },
+    'news-app': {
+      title: 'News Application (Android)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>Modern Android news app fetching real-time headlines from NewsAPI with WorkManager push notifications.</p>
+        <h3>Key Features</h3><ul>
+          <li>Real-time news with category filtering</li>
+          <li>WorkManager background notifications</li>
+          <li>Material Design 3, dark/light theme</li>
+          <li>MVVM with StateFlow</li>
+        </ul>
+        <h3>Technologies</h3><p>Kotlin, Jetpack Compose, Retrofit, WorkManager, Coil, NewsAPI</p></div>`
+    },
+    'visitor-management': {
+      title: 'Visitor Management System (Java/MySQL)',
+      description: `<div class="project-modal-content">
+        <h3>Overview</h3><p>Secure Java desktop app for visitor check-in/check-out using QR code scanning. Reduced check-in time by 75%.</p>
+        <h3>Key Features</h3><ul>
+          <li>QR code generation & scanning (ZXing)</li>
+          <li>Webcam integration for photo capture</li>
+          <li>MySQL with 99.9% data integrity</li>
+          <li>Admin login with access control</li>
+        </ul>
+        <h3>Technologies</h3><p>Java, Swing/AWT, MySQL, ZXing, Webcam Capture API</p></div>`
     }
+  };
+
+  const project = projectDetails[projectId];
+  if (!project) return;
+  const modalDetails = document.getElementById('modal-details');
+  const modal = document.getElementById('modal');
+  modalDetails.innerHTML = `<h2>${project.title}</h2>${project.description}`;
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('active'), 10);
 }
+
 function showCertificationDetails(certificationId) {
-    const certificationDetails = {
-        'aws-cloud-practitioner': {
-            title: 'AWS Certified Cloud Practitioner',
-            description: 'Certification demonstrating foundational knowledge of AWS Cloud services.',
-            link: 'https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url' // Replace with actual link
-        },
-        'generative-ai': {
-            title: 'Level 3 Generative AI: Prompt Engineering',
-            description: 'Advanced certification in Generative AI and Prompt Engineering techniques.',
-            link: 'https://www.cloudskillsboost.google/public_profiles/8da9507c-bba1-4443-8d44-a4d6d56ebc42' // Replace with actual link
-        },
-        'algorithmic-toolbox': {
-            title: 'Algorithmic Toolbox | Coursera',
-            description: 'Certification in algorithmic problem-solving and computational thinking.',
-            link: 'https://www.coursera.org/account/accomplishments/verify/G22DHB7GPUAH?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course' // Replace with actual link
-        }
-    };
+  const certs = {
+    'aws-cloud-practitioner': {
+      title: 'AWS Certified Cloud Practitioner',
+      description: 'Foundational certification demonstrating knowledge of AWS Cloud services, architecture, security, and pricing.',
+      link: 'https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url'
+    },
+    'generative-ai': {
+      title: 'Level 3 Generative AI: Prompt Engineering',
+      description: 'Advanced certification in Generative AI techniques and prompt engineering from Google Cloud.',
+      link: 'https://www.cloudskillsboost.google/public_profiles/8da9507c-bba1-4443-8d44-a4d6d56ebc42'
+    },
+    'algorithmic-toolbox': {
+      title: 'Algorithmic Toolbox – Coursera',
+      description: 'Certification in algorithmic problem-solving: greedy algorithms, divide & conquer, dynamic programming.',
+      link: 'https://www.coursera.org/account/accomplishments/verify/G22DHB7GPUAH'
+    }
+  };
 
-    const certification = certificationDetails[certificationId];
-    if (certification) {
-        document.getElementById('modal-details').innerHTML = `
-            <h2>${certification.title}</h2>
-            <p>${certification.description}</p>
-            <a href="${certification.link}" target="_blank">View Certificate</a>
-        `;
-        document.getElementById('modal').style.display = 'flex';
-    }
-  if (certification) {
-        const modalDetails = document.getElementById('modal-details');
-        modalDetails.innerHTML = `
-            <h2>${certification.title}</h2>
-            <p>${certification.description}</p>
-            <a href="${certification.link}" target="_blank">View Certificate</a>
-        `;
-        const modal = document.getElementById('modal');
-        modal.style.display = 'flex';
-        
-        // Check if dark theme is active and apply it to modal
-        if (document.body.classList.contains('dark-theme')) {
-            modal.classList.add('dark-theme');
-            modalDetails.classList.add('dark-theme');
-        }
-        
-        setTimeout(() => modal.classList.add('active'), 10);
-    }
+  const cert = certs[certificationId];
+  if (!cert) return;
+  const modalDetails = document.getElementById('modal-details');
+  const modal = document.getElementById('modal');
+  modalDetails.innerHTML = `<h2>${cert.title}</h2><p>${cert.description}</p><a href="${cert.link}" target="_blank">View Certificate →</a>`;
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('active'), 10);
 }
 
 function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('active');
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.classList.remove('dark-theme');
-        document.getElementById('modal-details').classList.remove('dark-theme');
-    }, 300);
-}
-document.addEventListener('DOMContentLoaded', function () {
-  const sr = ScrollReveal({
-        duration: 1000,
-        distance: '50px',
-        easing: 'cubic-bezier(0.5, 0, 0, 1)',
-        reset: true
-    });
-
-    // Fade and scale animation
-    sr.reveal('.sr-fadeInScale', {
-        origin: 'bottom',
-        scale: 0.9,
-        opacity: 0,
-        delay: 200
-    });
-
-    // Slide in from left
-    sr.reveal('.sr-slideInLeft', {
-        origin: 'left',
-        distance: '100px',
-        delay: 300
-    });
-
-    // Slide in from right
-    sr.reveal('.sr-slideInRight', {
-        origin: 'right',
-        distance: '100px',
-        delay: 300
-    });
-
-    // Rotate in
-    sr.reveal('.sr-rotateIn', {
-        rotate: { y: 90 },
-        delay: 400
-    });
-
-    // Apply floating animation to profile picture
-    const profilePic = document.querySelector('.profile-pic img');
-    if (profilePic) {
-        profilePic.classList.add('animate-float');
-    }
-
-    // Staggered reveal for skills
-    sr.reveal('.skills-table tr', {
-        origin: 'bottom',
-        interval: 200
-    });
-
-    // Staggered reveal for projects and certifications
-    sr.reveal('.project-box, .certification-box', {
-        origin: 'bottom',
-        interval: 200,
-        distance: '20px'
-    });
-    const themeToggleCheckbox = document.getElementById('theme-toggle-checkbox');
-themeToggleCheckbox.addEventListener('change', function () {
-    document.body.classList.toggle('dark-theme');
-
-    // Toggle dark theme for all sections including certifications
-    document.querySelectorAll('header, #home, #about, #skills, #projects, #certifications, #contact, footer, .btn, nav ul li a, h2, .intro, .skills-table, .project-box, .certification-box, .clickable-icon, .certification, .view-certificate').forEach(element => {
-        element.classList.toggle('dark-theme');
-    });
-});
-});
-// Add these new interactive features to script.js
-
-// Scroll Progress Indicator
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            const scrollProgress = document.querySelector('.scroll-progress');
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollTop = document.documentElement.scrollTop;
-            scrollProgress.style.width = (scrollTop / height) * 100 + '%';
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-
-// Tilt effect for project and certification boxes
-document.querySelectorAll('.project-box, .certification-box').forEach(box => {
-    box.addEventListener('mousemove', (e) => {
-        const rect = box.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        box.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-    
-    box.addEventListener('mouseleave', () => {
-        box.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-    });
-});
-
-// Smooth scroll for navigation
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-    });
-});
-
-// Lazy loading for images
-document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.getAttribute('data-src');
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-});
-
-// Add touch support for mobile devices
-let touchStartX = 0;
-let touchEndX = 0;
-
-document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-});
-
-function handleSwipe() {
-    const swipeThreshold = 50;
-    const difference = touchEndX - touchStartX;
-    
-    if (Math.abs(difference) > swipeThreshold) {
-        if (difference > 0) {
-            // Swipe right - previous section
-            navigateSections('prev');
-        } else {
-            // Swipe left - next section
-            navigateSections('next');
-        }
-    }
+  const modal = document.getElementById('modal');
+  modal.classList.remove('active');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
 }
 
-function navigateSections(direction) {
-    const sections = Array.from(document.querySelectorAll('section'));
-    const currentSection = sections.find(section => {
-        const rect = section.getBoundingClientRect();
-        return rect.top >= 0 && rect.top <= window.innerHeight;
-    });
-    
-    if (currentSection) {
-        const currentIndex = sections.indexOf(currentSection);
-        const targetIndex = direction === 'next' ? 
-            Math.min(currentIndex + 1, sections.length - 1) : 
-            Math.max(currentIndex - 1, 0);
-            
-        sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
-    }
-}
-const isMobile = window.innerWidth <= 768;
-if (isMobile) {
-    ScrollReveal().destroy();
-}
-document.addEventListener('DOMContentLoaded', function() {
-    const chatIcon = document.getElementById('chatIcon');
-    const chatBox = document.getElementById('chatBox');
-    const minimizeChat = document.getElementById('minimizeChat');
-    const userInput = document.getElementById('userInput');
-    const sendMessage = document.getElementById('sendMessage');
-    const chatMessages = document.getElementById('chatMessages');
-
-    // Comprehensive FAQ Database
-    const faqDatabase = {
-        'keywords': {
-            'about': {
-                keywords: ['who are you', 'introduce', 'background', 'profile'],
-                response: `I'm Priyanshu Kumar Ojha, a B.Tech Computer Science student at Bennett University with a CGPA of 8.93. I'm passionate about software development, cloud computing, and machine learning.`,
-                links: []
-            },
-            'education': {
-                keywords: ['study', 'university', 'college', 'education'],
-                response: `Studying B.Tech in Computer Science at Bennett University (2022-2026). Completed Class XII from Army Public School with 92%. Current CGPA: 8.93`,
-                links: []
-            },
-            'skills': {
-                keywords: ['programming', 'tech', 'languages', 'frameworks','skills'],
-                response: `Programming Languages: Java (Advanced), Kotlin (Advanced), Python (Intermediate)
-Cloud: AWS Cloud, Firebase
-Databases: MySQL, MongoDB, PostgreSQL
-Frameworks: Jetpack Compose, MVVM, REST APIs`,
-                links: []
-            },
-            'projects': {
-                keywords: ['project', 'work', 'development'],
-                response: `Key Projects:
-1. Chat Application (Kotlin): Firebase-integrated messaging app
-2. Salary Prediction App (Machine Learning): Real-time salary predictions with 91% accuracy
-3. DSA Visualizer (Java): Interactive algorithm and data structure visualization`,
-                links: {
-                    'Chat App': 'https://github.com/priyanshu1512/kotlinappchatterly',
-                    'Salary Prediction': 'https://github.com/priyanshu1512/Salary-Prediction-',
-                    'DSA Visualizer': 'https://github.com/priyanshu1512/dsaproject'
-                }
-            },
-            'certifications': {
-                keywords: ['certificate', 'certification', 'credentials'],
-                response: `Certifications:
-1. AWS Certified Cloud Practitioner
-2. Improving Deep Neural Networks (Coursera)
-3. Algorithmic Toolbox (Coursera)`,
-                links: {
-                    'AWS Certification': 'https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url',
-                    'Coursera Profile': 'https://www.coursera.org/user/profile'
-                }
-            },
-            'contact': {
-                keywords: ['reach', 'contact', 'email', 'phone', 'connect'],
-                response: `Contact Details:
-- Email: priyanshuojha485@gmail.com
-- Phone: +91 9041989443
-- Location: Noida
-- LinkedIn: Priyanshu Kumar Ojha
-- LeetCode: priyanshuplays`,
-                links: {
-                    'LinkedIn': 'https://www.linkedin.com/in/priyanshu-kumar-ojha/',
-                    'LeetCode': 'https://leetcode.com/priyanshuplays/'
-                }
-            },
-            'achievements': {
-                keywords: ['achievement', 'contest', 'award', 'accomplishment','coding','leetcode'],
-                response: `Key Achievements:
-- 250+ coding problems solved on platforms like LeetCode
-- LeetCode rating of 1775+, top 10% globally
-- AWHO Scholarships for academic excellence (1 lakh rupees)
-- Participated in 10+ coding contests`,
-                links: []
-            }
-        },
-        'default': {
-            response: "I'm an AI assistant for Priyanshu's portfolio. Ask me about his skills, projects, education, or contact information. Try keywords like 'skills', 'projects', or 'contact'.",
-            links: []
-        }
-    };
-
-    function findBestResponse(message) {
-        const lowercaseMsg = message.toLowerCase();
-        
-        for (let category in faqDatabase.keywords) {
-            const keywordSet = faqDatabase.keywords[category];
-            
-            for (let keyword of keywordSet.keywords) {
-                if (lowercaseMsg.includes(keyword)) {
-                    return {
-                        response: keywordSet.response,
-                        links: keywordSet.links || {}
-                    };
-                }
-            }
-        }
-        
-        return faqDatabase.default;
-    }
-
-    function appendMessage(sender, text, links = {}) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}`;
-        messageDiv.innerHTML = text;
-
-        // Add links if available
-        if (Object.keys(links).length > 0) {
-            const linksDiv = document.createElement('div');
-            linksDiv.className = 'message-links';
-            Object.entries(links).forEach(([title, url]) => {
-                const linkElem = document.createElement('a');
-                linkElem.href = url;
-                linkElem.textContent = title;
-                linkElem.target = '_blank';
-                linksDiv.appendChild(linkElem);
-            });
-            messageDiv.appendChild(linksDiv);
-        }
-
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function processMessage() {
-        const message = userInput.value.trim();
-        if (message === '') return;
-
-        appendMessage('user', message);
-        userInput.value = '';
-
-        setTimeout(() => {
-            const result = findBestResponse(message);
-            appendMessage('bot', result.response, result.links);
-        }, 500);
-    }
-
-    sendMessage.addEventListener('click', processMessage);
-    userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') processMessage();
-    });
-
-    chatIcon.addEventListener('click', () => {
-        chatBox.style.display = chatBox.style.display === 'none' || chatBox.style.display === '' ? 'flex' : 'none';
-    });
-
-    minimizeChat.addEventListener('click', () => {
-        chatBox.style.display = 'none';
-    });
+document.addEventListener('click', (e) => {
+  const modal = document.getElementById('modal');
+  if (e.target === modal) closeModal();
 });
