@@ -12,6 +12,68 @@
   <div class="container"></div>
   <div class="scroll-progress"></div>
 
+  <!-- ═══ RACING TRACK ═══════════════════════════════════════════ -->
+  <div id="rt-wrap">
+    <div id="rt-road"></div>
+    <!-- Car injected by JS; checkpoints also injected by JS -->
+    <div id="rt-car"><svg viewBox="0 0 36 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+  <!-- Shadow / ground reflection -->
+  <ellipse cx="18" cy="54" rx="10" ry="3" fill="rgba(0,0,0,0.18)"/>
+  <!-- Main body — 911's distinctive wide-hip shape -->
+  <path d="M10 52 Q6 48 6 38 L7 22 Q8 10 18 7 Q28 10 29 22 L30 38 Q30 48 26 52 Z"
+        fill="#1e40af"/>
+  <!-- Body highlight -->
+  <path d="M15 10 Q18 7.5 21 10 L22 28 Q20 26 18 26 Q16 26 14 28 Z"
+        fill="rgba(255,255,255,0.12)"/>
+  <!-- Roof / cockpit — 911 fastback -->
+  <path d="M13 42 Q11 36 12 26 Q14 18 18 17 Q22 18 24 26 Q25 36 23 42 Z"
+        fill="#1e3a8a"/>
+  <!-- Windscreen tint -->
+  <path d="M13.5 36 Q12.5 30 13.5 25 Q15.5 20 18 19.5 Q20.5 20 22.5 25 Q23.5 30 22.5 36 Z"
+        fill="rgba(147,197,253,0.35)"/>
+  <!-- Rear window -->
+  <path d="M14 43 Q13 47 14 50 L18 51 L22 50 Q23 47 22 43 Z"
+        fill="rgba(147,197,253,0.2)"/>
+  <!-- Front hood bulge -->
+  <path d="M14 16 Q18 13 22 16 L21 22 Q18 20 15 22 Z"
+        fill="#1e3a8a"/>
+  <!-- Front bumper / splitter -->
+  <path d="M12 9 Q18 6.5 24 9 L23 11 Q18 9.5 13 11 Z"
+        fill="#172554"/>
+  <!-- Front lights (LED strip style) -->
+  <path d="M13 9.5 Q14 8.8 16 9.2" stroke="#93c5fd" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M20 9.2 Q22 8.8 23 9.5" stroke="#93c5fd" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Rear diffuser -->
+  <path d="M12 51.5 Q18 53.5 24 51.5 L23 53 Q18 54.5 13 53 Z"
+        fill="#172554"/>
+  <!-- Rear lights -->
+  <rect x="11" y="50" width="5" height="1.8" rx="0.9" fill="#ef4444" opacity="0.85"/>
+  <rect x="20" y="50" width="5" height="1.8" rx="0.9" fill="#ef4444" opacity="0.85"/>
+  <!-- Left wheels (viewed from top) -->
+  <rect x="5.5" y="14" width="5" height="9" rx="2.2" fill="#0f172a"/>
+  <rect x="6.2" y="14.8" width="3.6" height="7.4" rx="1.5" fill="#1e293b"/>
+  <rect x="5.5" y="36" width="5" height="10" rx="2.2" fill="#0f172a"/>
+  <rect x="6.2" y="36.8" width="3.6" height="8.4" rx="1.5" fill="#1e293b"/>
+  <!-- Right wheels -->
+  <rect x="25.5" y="14" width="5" height="9" rx="2.2" fill="#0f172a"/>
+  <rect x="26.2" y="14.8" width="3.6" height="7.4" rx="1.5" fill="#1e293b"/>
+  <rect x="25.5" y="36" width="5" height="10" rx="2.2" fill="#0f172a"/>
+  <rect x="26.2" y="36.8" width="3.6" height="8.4" rx="1.5" fill="#1e293b"/>
+  <!-- Wheel rim accents -->
+  <circle cx="8" cy="18.5" r="1.4" fill="rgba(148,163,184,0.5)"/>
+  <circle cx="8" cy="41"   r="1.4" fill="rgba(148,163,184,0.5)"/>
+  <circle cx="28" cy="18.5" r="1.4" fill="rgba(148,163,184,0.5)"/>
+  <circle cx="28" cy="41"   r="1.4" fill="rgba(148,163,184,0.5)"/>
+  <!-- Side mirror left -->
+  <path d="M7 25 L5 26.5 L5 28 L7 27.5 Z" fill="#1e3a8a"/>
+  <!-- Side mirror right -->
+  <path d="M29 25 L31 26.5 L31 28 L29 27.5 Z" fill="#1e3a8a"/>
+  <!-- Centre stripe (subtle) -->
+  <line x1="18" y1="8" x2="18" y2="52" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+</svg></div>
+  </div>
+  <!-- ════════════════════════════════════════════════════════════ -->
+
   <!-- MOBILE HAMBURGER MENU -->
   <div class="mobile-menu-overlay" id="mobileOverlay"></div>
   <nav class="mobile-nav" id="mobileNav">
@@ -47,7 +109,6 @@
       </button>
     </div>
 
-    <!-- DESKTOP DOCK NAV -->
     <nav class="dock-nav">
       <ul>
         <li class="dock-item"><a href="#home" class="dock-link"><i class="fas fa-home"></i><span class="dock-label">Home</span></a></li>
@@ -82,15 +143,12 @@
           </div>
         </div>
       </label>
-
-      <!-- HAMBURGER BUTTON (mobile only) -->
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- HOME -->
   <section id="home">
     <div class="intro sr-slideInLeft">
       <h2>Hello,</h2>
@@ -98,12 +156,8 @@
       <h3>Software Engineer</h3>
       <p>From India</p>
       <div class="cta-buttons">
-        <a href="resume.pdf" class="btn" download="Priyanshu_Kumar_Ojha_Resume.pdf">
-          <i class="fas fa-download"></i> Download Resume
-        </a>
-        <a href="#contact" class="btn btn-outline">
-          <i class="fas fa-envelope"></i> Contact Me
-        </a>
+        <a href="resume.pdf" class="btn" download="Priyanshu_Kumar_Ojha_Resume.pdf"><i class="fas fa-download"></i> Download Resume</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Me</a>
       </div>
     </div>
     <div class="profile-pic sr-fadeInScale">
@@ -111,30 +165,16 @@
     </div>
   </section>
 
-  <!-- GLASSMORPHISM STATS BAR -->
   <div class="stats-bar" id="statsBar">
-    <div class="stat-item">
-      <div class="stat-top"><span class="stat-number" data-target="250">0</span><span class="stat-suffix">+</span></div>
-      <span class="stat-label">Problems Solved</span>
-    </div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="250">0</span><span class="stat-suffix">+</span></div><span class="stat-label">Problems Solved</span></div>
     <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-top"><span class="stat-number" data-target="1775">0</span><span class="stat-suffix">+</span></div>
-      <span class="stat-label">LeetCode Rating</span>
-    </div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1775">0</span><span class="stat-suffix">+</span></div><span class="stat-label">LeetCode Rating</span></div>
     <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-top"><span class="stat-number" data-target="893" data-decimal="true">0</span></div>
-      <span class="stat-label">CGPA / 10</span>
-    </div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="893" data-decimal="true">0</span></div><span class="stat-label">CGPA / 10</span></div>
     <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-top"><span class="stat-number" data-target="1">0</span></div>
-      <span class="stat-label">Internship @ HERE</span>
-    </div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1">0</span></div><span class="stat-label">Internship @ HERE</span></div>
   </div>
 
-  <!-- ABOUT -->
   <section id="about" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-user"></i> About Me</h2>
     <p>I'm <strong>Priyanshu Kumar Ojha</strong>, a <strong>Java developer</strong> who enjoys solving complex problems and writing clean, reliable code. I work extensively with <strong>core Java, Scala, AWS and REST APIs</strong>, focusing on correctness, performance, and scalability in real-world systems.</p>
@@ -143,7 +183,6 @@
     <p>I'm also an <strong>AWS Certified Cloud Practitioner</strong> with solid <strong>cloud fundamentals</strong>, giving me a good understanding of scalable architectures and cloud-integrated applications.</p>
   </section>
 
-  <!-- EXPERIENCE (NEW) -->
   <section id="experience" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-briefcase"></i> Experience</h2>
     <div class="timeline">
@@ -160,9 +199,7 @@
               <span class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai, India</span>
             </div>
           </div>
-          <div class="timeline-tags">
-            <span>Java</span><span>JUnit</span><span>Spring Boot</span><span>VisualVM</span><span>Jira</span>
-          </div>
+          <div class="timeline-tags"><span>Java</span><span>JUnit</span><span>Spring Boot</span><span>VisualVM</span><span>Jira</span></div>
           <ul class="timeline-bullets">
             <li>Collaborated with the Map Making Automation Services (MMAS) team to maintain production flows, ensuring <strong>data integrity across millions of map features</strong> in HERE's global mapping pipeline.</li>
             <li>Developed <strong>100+ comprehensive JUnit test cases</strong> for core validation library, ensuring correctness across 40+ validation rules for multiple map features and geographic profiles.</li>
@@ -175,212 +212,64 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills" data-bgcolor="#b8dcff" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-code"></i> Skills</h2>
     <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-card-icon"><i class="fab fa-java"></i></div>
-        <h4>Programming Languages</h4>
-        <div class="skill-tags">
-          <span class="skill-tag advanced">Java <em>Advanced</em></span>
-          <span class="skill-tag advanced">Kotlin </span>
-          <span class="skill-tag intermediate">Python </span>
-          <span class="skill-tag intermediate">Scala</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-icon"><i class="fab fa-aws"></i></div>
-        <h4>Cloud & Backend</h4>
-        <div class="skill-tags">
-          <span class="skill-tag advanced">AWS Cloud <em>Certified</em></span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">Spring Boot</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Amazon RDS</span>
-          <span class="skill-tag">DynamoDB</span>
-          <span class="skill-tag">Amazon S3</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-icon"><i class="fas fa-database"></i></div>
-        <h4>Databases</h4>
-        <div class="skill-tags">
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MongoDB</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-icon"><i class="fas fa-tools"></i></div>
-        <h4>Tools & Frameworks</h4>
-        <div class="skill-tags">
-          <span class="skill-tag advanced">Jetpack Compose <em>Advanced</em></span>
-          <span class="skill-tag">MVVM</span>
-          <span class="skill-tag">JUnit</span>
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">Jira</span>
-          <span class="skill-tag">IntelliJ</span>
-          <span class="skill-tag">VisualVM</span>
-          <span class="skill-tag">AWT / Swing</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-icon"><i class="fas fa-desktop"></i></div>
-        <h4>Operating Systems</h4>
-        <div class="skill-tags">
-          <span class="skill-tag"><i class="fab fa-windows"></i> Windows</span>
-          <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
-        </div>
-      </div>
+      <div class="skill-card"><div class="skill-card-icon"><i class="fab fa-java"></i></div><h4>Programming Languages</h4><div class="skill-tags"><span class="skill-tag advanced">Java <em>Advanced</em></span><span class="skill-tag advanced">Kotlin </span><span class="skill-tag intermediate">Python </span><span class="skill-tag intermediate">Scala</span></div></div>
+      <div class="skill-card"><div class="skill-card-icon"><i class="fab fa-aws"></i></div><h4>Cloud & Backend</h4><div class="skill-tags"><span class="skill-tag advanced">AWS Cloud <em>Certified</em></span><span class="skill-tag">Firebase</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Amazon RDS</span><span class="skill-tag">DynamoDB</span><span class="skill-tag">Amazon S3</span></div></div>
+      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-database"></i></div><h4>Databases</h4><div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span></div></div>
+      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-tools"></i></div><h4>Tools & Frameworks</h4><div class="skill-tags"><span class="skill-tag advanced">Jetpack Compose <em>Advanced</em></span><span class="skill-tag">MVVM</span><span class="skill-tag">JUnit</span><span class="skill-tag">Git / GitHub</span><span class="skill-tag">Jira</span><span class="skill-tag">IntelliJ</span><span class="skill-tag">VisualVM</span><span class="skill-tag">AWT / Swing</span></div></div>
+      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-desktop"></i></div><h4>Operating Systems</h4><div class="skill-tags"><span class="skill-tag"><i class="fab fa-windows"></i> Windows</span><span class="skill-tag"><i class="fab fa-linux"></i> Linux</span></div></div>
     </div>
-    <div class="relevant-coursework">
-      <h3>Relevant Coursework</h3>
-      <p>Data Structures & Algorithms, Machine Learning, Object Oriented Programming, Operating Systems, Computer Networks, Database Management Systems, Software Engineering</p>
-    </div>
+    <div class="relevant-coursework"><h3>Relevant Coursework</h3><p>Data Structures & Algorithms, Machine Learning, Object Oriented Programming, Operating Systems, Computer Networks, Database Management Systems, Software Engineering</p></div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects" data-bgcolor="#94c8ff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-project-diagram"></i> Projects</h2>
     <div class="projects-container">
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('Chatterly')">
-        <img src="chatterly-image.png" alt="Chatterly App" class="project-image">
-        <h3>Chat Application</h3>
-        <div class="tags"><span>Kotlin</span><span>Firebase</span><span>MVVM</span></div>
-        <p>Built a Kotlin-based chat app using Jetpack Compose and MVVM architecture for real-time messaging with 99.5% uptime.</p>
-        <a href="https://github.com/priyanshu1512/kotlinappchatterly" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('news-app')">
-        <img src="news-app-image.png" alt="News App" class="project-image">
-        <h3>News Application</h3>
-        <div class="tags"><span>Kotlin</span><span>REST API</span><span>WorkManager</span></div>
-        <p>A modern Android news app fetching top headlines using NewsAPI with Jetpack Compose UI and push notifications.</p>
-        <a href="https://github.com/priyanshu1512/News-Application" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('visitor-management')">
-        <img src="visitor-management-image.png" alt="Visitor Management" class="project-image">
-        <h3>Visitor Management System</h3>
-        <div class="tags"><span>Java</span><span>MySQL</span><span>QR Code</span></div>
-        <p>Java-based system with Swing UI and MySQL for secure visitor tracking — reduced check-in time by 75%.</p>
-        <a href="https://github.com/priyanshu1512/VisitorManagementSystem1" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('hate-speech')">
-        <img src="salary-prediction-image.png" alt="Hate Speech Recognition" class="project-image">
-        <h3>Hate Speech Recognition</h3>
-        <div class="tags"><span>Python</span><span>AWS</span><span>BiLSTM</span></div>
-        <p>BiLSTM neural network achieving 83% accuracy deployed on AWS SageMaker handling 1000+ monthly active users.</p>
-        <a href="#" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('salarypridiction')">
-        <img src="salary-prediction-image.png" alt="Salary Prediction" class="project-image">
-        <h3>Salary Prediction App</h3>
-        <div class="tags"><span>Python</span><span>Streamlit</span><span>Scikit-learn</span></div>
-        <p>A Python ML web app using Streamlit for real-time salary predictions with 91% model accuracy.</p>
-        <a href="https://github.com/priyanshu1512/Salary-Prediction-" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
-      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('journey-junction')">
-        <img src="dsa-visualizer-image.png" alt="DSA Visualizer" class="project-image">
-        <h3>DSA Visualizer</h3>
-        <div class="tags"><span>Java</span><span>AWT</span><span>Swing</span></div>
-        <p>A Java tool using AWT and Swing to visualize data structures and algorithms interactively.</p>
-        <a href="https://github.com/priyanshu1512/dsaproject" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a>
-      </div>
-
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('Chatterly')"><img src="chatterly-image.png" alt="Chatterly App" class="project-image"><h3>Chat Application</h3><div class="tags"><span>Kotlin</span><span>Firebase</span><span>MVVM</span></div><p>Built a Kotlin-based chat app using Jetpack Compose and MVVM architecture for real-time messaging with 99.5% uptime.</p><a href="https://github.com/priyanshu1512/kotlinappchatterly" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('news-app')"><img src="news-app-image.png" alt="News App" class="project-image"><h3>News Application</h3><div class="tags"><span>Kotlin</span><span>REST API</span><span>WorkManager</span></div><p>A modern Android news app fetching top headlines using NewsAPI with Jetpack Compose UI and push notifications.</p><a href="https://github.com/priyanshu1512/News-Application" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('visitor-management')"><img src="visitor-management-image.png" alt="Visitor Management" class="project-image"><h3>Visitor Management System</h3><div class="tags"><span>Java</span><span>MySQL</span><span>QR Code</span></div><p>Java-based system with Swing UI and MySQL for secure visitor tracking — reduced check-in time by 75%.</p><a href="https://github.com/priyanshu1512/VisitorManagementSystem1" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('hate-speech')"><img src="salary-prediction-image.png" alt="Hate Speech Recognition" class="project-image"><h3>Hate Speech Recognition</h3><div class="tags"><span>Python</span><span>AWS</span><span>BiLSTM</span></div><p>BiLSTM neural network achieving 83% accuracy deployed on AWS SageMaker handling 1000+ monthly active users.</p><a href="#" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('salarypridiction')"><img src="salary-prediction-image.png" alt="Salary Prediction" class="project-image"><h3>Salary Prediction App</h3><div class="tags"><span>Python</span><span>Streamlit</span><span>Scikit-learn</span></div><p>A Python ML web app using Streamlit for real-time salary predictions with 91% model accuracy.</p><a href="https://github.com/priyanshu1512/Salary-Prediction-" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
+      <div class="project-box sr-fadeInScale" onclick="showProjectDetails('journey-junction')"><img src="dsa-visualizer-image.png" alt="DSA Visualizer" class="project-image"><h3>DSA Visualizer</h3><div class="tags"><span>Java</span><span>AWT</span><span>Swing</span></div><p>A Java tool using AWT and Swing to visualize data structures and algorithms interactively.</p><a href="https://github.com/priyanshu1512/dsaproject" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
     </div>
   </section>
 
-  <!-- CERTIFICATIONS -->
   <section id="certifications" data-bgcolor="#6aaff5" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-certificate"></i> Certifications</h2>
     <div class="certifications-container">
-      <div class="certification-box" onclick="showCertificationDetails('aws-cloud-practitioner')">
-        <span class="clickable-icon"></span>
-        <div class="cert-icon"><i class="fab fa-aws"></i></div>
-        <h3>AWS Certified Cloud Practitioner</h3>
-        <a href="https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url" target="_blank" class="view-certificate">View Certificate</a>
-      </div>
-      <div class="certification-box" onclick="showCertificationDetails('generative-ai')">
-        <span class="clickable-icon"></span>
-        <div class="cert-icon"><i class="fas fa-brain"></i></div>
-        <h3>Level 3 Generative AI: Prompt Engineering</h3>
-        <a href="https://www.cloudskillsboost.google/public_profiles/8da9507c-bba1-4443-8d44-a4d6d56ebc42" target="_blank" class="view-certificate">View Certificate</a>
-      </div>
-      <div class="certification-box" onclick="showCertificationDetails('algorithmic-toolbox')">
-        <span class="clickable-icon"></span>
-        <div class="cert-icon"><i class="fas fa-code-branch"></i></div>
-        <h3>Algorithmic Toolbox | Coursera</h3>
-        <a href="https://www.coursera.org/account/accomplishments/verify/G22DHB7GPUAH" target="_blank" class="view-certificate">View Certificate</a>
-      </div>
+      <div class="certification-box" onclick="showCertificationDetails('aws-cloud-practitioner')"><span class="clickable-icon"></span><div class="cert-icon"><i class="fab fa-aws"></i></div><h3>AWS Certified Cloud Practitioner</h3><a href="https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url" target="_blank" class="view-certificate">View Certificate</a></div>
+      <div class="certification-box" onclick="showCertificationDetails('generative-ai')"><span class="clickable-icon"></span><div class="cert-icon"><i class="fas fa-brain"></i></div><h3>Level 3 Generative AI: Prompt Engineering</h3><a href="https://www.cloudskillsboost.google/public_profiles/8da9507c-bba1-4443-8d44-a4d6d56ebc42" target="_blank" class="view-certificate">View Certificate</a></div>
+      <div class="certification-box" onclick="showCertificationDetails('algorithmic-toolbox')"><span class="clickable-icon"></span><div class="cert-icon"><i class="fas fa-code-branch"></i></div><h3>Algorithmic Toolbox | Coursera</h3><a href="https://www.coursera.org/account/accomplishments/verify/G22DHB7GPUAH" target="_blank" class="view-certificate">View Certificate</a></div>
     </div>
   </section>
 
-  <!-- LEETCODE -->
   <section id="leetcode" data-bgcolor="#4090e8" data-textcolor="#ffffff">
     <h2 class="sr-rotateIn"><i class="fas fa-code"></i> LeetCode Profile</h2>
-    <div class="leetcode-container">
-      <div class="leetcode-box">
-        <div class="leetcode-stats">
-          <h3>priyanshuplays</h3>
-          <div class="leetcode-badges">
-            <div class="badge">
-              <i class="fas fa-star"></i>
-              <span>Problems Solved</span>
-              <div class="count">250+</div>
-            </div>
-            <div class="badge">
-              <i class="fas fa-trophy"></i>
-              <span>Contest Rating</span>
-              <div class="count">1775+</div>
-            </div>
-            <div class="badge">
-              <i class="fas fa-chart-line"></i>
-              <span>Global Ranking</span>
-              <div class="count">Top 10%</div>
-            </div>
-          </div>
-          <a href="https://leetcode.com/priyanshuplays/" target="_blank" class="leetcode-btn">
-            <i class="fas fa-external-link-alt"></i> View Profile
-          </a>
-        </div>
+    <div class="leetcode-container"><div class="leetcode-box"><div class="leetcode-stats">
+      <h3>priyanshuplays</h3>
+      <div class="leetcode-badges">
+        <div class="badge"><i class="fas fa-star"></i><span>Problems Solved</span><div class="count">250+</div></div>
+        <div class="badge"><i class="fas fa-trophy"></i><span>Contest Rating</span><div class="count">1775+</div></div>
+        <div class="badge"><i class="fas fa-chart-line"></i><span>Global Ranking</span><div class="count">Top 10%</div></div>
       </div>
-    </div>
+      <a href="https://leetcode.com/priyanshuplays/" target="_blank" class="leetcode-btn"><i class="fas fa-external-link-alt"></i> View Profile</a>
+    </div></div></div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" data-bgcolor="#1a6dd4" data-textcolor="#ffffff">
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <div class="contact-grid">
-      <a href="mailto:yourname@example.com" class="contact-card">
-  <i class="fas fa-envelope"></i>
-  <span>priyanshuojha485@gmail.com</span>
-</a>
-      <a href="https://www.linkedin.com/in/priyanshu-kumar-ojha" target="_blank" class="contact-card">
-        <i class="fab fa-linkedin"></i>
-        <span>Priyanshu Kumar Ojha</span>
-      </a>
-      <a href="tel:+919041989443" class="contact-card">
-        <i class="fas fa-phone"></i>
-        <span>+91 9041989443</span>
-      </a>
-      <a href="https://github.com/priyanshu1512" target="_blank" class="contact-card">
-        <i class="fab fa-github"></i>
-        <span>priyanshu1512</span>
-      </a>
+      <a href="mailto:priyanshuojha485@gmail.com" class="contact-card"><i class="fas fa-envelope"></i><span>priyanshuojha485@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/priyanshu-kumar-ojha" target="_blank" class="contact-card"><i class="fab fa-linkedin"></i><span>Priyanshu Kumar Ojha</span></a>
+      <a href="tel:+919041989443" class="contact-card"><i class="fas fa-phone"></i><span>+91 9041989443</span></a>
+      <a href="https://github.com/priyanshu1512" target="_blank" class="contact-card"><i class="fab fa-github"></i><span>priyanshu1512</span></a>
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Priyanshu Kumar Ojha. All rights reserved.</p>
-  </footer>
+  <footer><p>&copy; 2025 Priyanshu Kumar Ojha. All rights reserved.</p></footer>
 
-  <!-- MODAL -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -388,21 +277,12 @@
     </div>
   </div>
 
-  <!-- CHAT -->
   <div class="chat-container">
     <div class="chat-icon" id="chatIcon"><i class="fas fa-comment"></i></div>
     <div class="chat-box" id="chatBox">
-      <div class="chat-header">
-        <h3>Portfolio Assistant</h3>
-        <button class="minimize-btn" id="minimizeChat"><i class="fas fa-minus"></i></button>
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="message bot">Hi! I'm Priyanshu's portfolio assistant. Ask me about his skills, projects, or experience!</div>
-      </div>
-      <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Type your question...">
-        <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
-      </div>
+      <div class="chat-header"><h3>Portfolio Assistant</h3><button class="minimize-btn" id="minimizeChat"><i class="fas fa-minus"></i></button></div>
+      <div class="chat-messages" id="chatMessages"><div class="message bot">Hi! I'm Priyanshu's portfolio assistant. Ask me about his skills, projects, or experience!</div></div>
+      <div class="chat-input"><input type="text" id="userInput" placeholder="Type your question..."><button id="sendMessage"><i class="fas fa-paper-plane"></i></button></div>
     </div>
   </div>
 
@@ -410,4 +290,3 @@
   <script src="script.js" defer></script>
 </body>
 </html>
-
