@@ -15,60 +15,34 @@
   <!-- ═══ RACING TRACK ═══════════════════════════════════════════ -->
   <div id="rt-wrap">
     <div id="rt-road"></div>
-    <!-- Car injected by JS; checkpoints also injected by JS -->
     <div id="rt-car"><svg viewBox="0 0 36 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-  <!-- Shadow / ground reflection -->
   <ellipse cx="18" cy="54" rx="10" ry="3" fill="rgba(0,0,0,0.18)"/>
-  <!-- Main body — 911's distinctive wide-hip shape -->
-  <path d="M10 52 Q6 48 6 38 L7 22 Q8 10 18 7 Q28 10 29 22 L30 38 Q30 48 26 52 Z"
-        fill="#1e40af"/>
-  <!-- Body highlight -->
-  <path d="M15 10 Q18 7.5 21 10 L22 28 Q20 26 18 26 Q16 26 14 28 Z"
-        fill="rgba(255,255,255,0.12)"/>
-  <!-- Roof / cockpit — 911 fastback -->
-  <path d="M13 42 Q11 36 12 26 Q14 18 18 17 Q22 18 24 26 Q25 36 23 42 Z"
-        fill="#1e3a8a"/>
-  <!-- Windscreen tint -->
-  <path d="M13.5 36 Q12.5 30 13.5 25 Q15.5 20 18 19.5 Q20.5 20 22.5 25 Q23.5 30 22.5 36 Z"
-        fill="rgba(147,197,253,0.35)"/>
-  <!-- Rear window -->
-  <path d="M14 43 Q13 47 14 50 L18 51 L22 50 Q23 47 22 43 Z"
-        fill="rgba(147,197,253,0.2)"/>
-  <!-- Front hood bulge -->
-  <path d="M14 16 Q18 13 22 16 L21 22 Q18 20 15 22 Z"
-        fill="#1e3a8a"/>
-  <!-- Front bumper / splitter -->
-  <path d="M12 9 Q18 6.5 24 9 L23 11 Q18 9.5 13 11 Z"
-        fill="#172554"/>
-  <!-- Front lights (LED strip style) -->
+  <path d="M10 52 Q6 48 6 38 L7 22 Q8 10 18 7 Q28 10 29 22 L30 38 Q30 48 26 52 Z" fill="#1e40af"/>
+  <path d="M15 10 Q18 7.5 21 10 L22 28 Q20 26 18 26 Q16 26 14 28 Z" fill="rgba(255,255,255,0.12)"/>
+  <path d="M13 42 Q11 36 12 26 Q14 18 18 17 Q22 18 24 26 Q25 36 23 42 Z" fill="#1e3a8a"/>
+  <path d="M13.5 36 Q12.5 30 13.5 25 Q15.5 20 18 19.5 Q20.5 20 22.5 25 Q23.5 30 22.5 36 Z" fill="rgba(147,197,253,0.35)"/>
+  <path d="M14 43 Q13 47 14 50 L18 51 L22 50 Q23 47 22 43 Z" fill="rgba(147,197,253,0.2)"/>
+  <path d="M14 16 Q18 13 22 16 L21 22 Q18 20 15 22 Z" fill="#1e3a8a"/>
+  <path d="M12 9 Q18 6.5 24 9 L23 11 Q18 9.5 13 11 Z" fill="#172554"/>
   <path d="M13 9.5 Q14 8.8 16 9.2" stroke="#93c5fd" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M20 9.2 Q22 8.8 23 9.5" stroke="#93c5fd" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <!-- Rear diffuser -->
-  <path d="M12 51.5 Q18 53.5 24 51.5 L23 53 Q18 54.5 13 53 Z"
-        fill="#172554"/>
-  <!-- Rear lights -->
+  <path d="M12 51.5 Q18 53.5 24 51.5 L23 53 Q18 54.5 13 53 Z" fill="#172554"/>
   <rect x="11" y="50" width="5" height="1.8" rx="0.9" fill="#ef4444" opacity="0.85"/>
   <rect x="20" y="50" width="5" height="1.8" rx="0.9" fill="#ef4444" opacity="0.85"/>
-  <!-- Left wheels (viewed from top) -->
   <rect x="5.5" y="14" width="5" height="9" rx="2.2" fill="#0f172a"/>
   <rect x="6.2" y="14.8" width="3.6" height="7.4" rx="1.5" fill="#1e293b"/>
   <rect x="5.5" y="36" width="5" height="10" rx="2.2" fill="#0f172a"/>
   <rect x="6.2" y="36.8" width="3.6" height="8.4" rx="1.5" fill="#1e293b"/>
-  <!-- Right wheels -->
   <rect x="25.5" y="14" width="5" height="9" rx="2.2" fill="#0f172a"/>
   <rect x="26.2" y="14.8" width="3.6" height="7.4" rx="1.5" fill="#1e293b"/>
   <rect x="25.5" y="36" width="5" height="10" rx="2.2" fill="#0f172a"/>
   <rect x="26.2" y="36.8" width="3.6" height="8.4" rx="1.5" fill="#1e293b"/>
-  <!-- Wheel rim accents -->
   <circle cx="8" cy="18.5" r="1.4" fill="rgba(148,163,184,0.5)"/>
   <circle cx="8" cy="41"   r="1.4" fill="rgba(148,163,184,0.5)"/>
   <circle cx="28" cy="18.5" r="1.4" fill="rgba(148,163,184,0.5)"/>
   <circle cx="28" cy="41"   r="1.4" fill="rgba(148,163,184,0.5)"/>
-  <!-- Side mirror left -->
   <path d="M7 25 L5 26.5 L5 28 L7 27.5 Z" fill="#1e3a8a"/>
-  <!-- Side mirror right -->
   <path d="M29 25 L31 26.5 L31 28 L29 27.5 Z" fill="#1e3a8a"/>
-  <!-- Centre stripe (subtle) -->
   <line x1="18" y1="8" x2="18" y2="52" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
 </svg></div>
   </div>
@@ -153,7 +127,7 @@
     <div class="intro sr-slideInLeft">
       <h2>Hello,</h2>
       <h1>I'm Priyanshu Kumar Ojha</h1>
-      <h3>Software Engineer</h3>
+      <h3>Software Engineer II</h3>
       <p>From India</p>
       <div class="cta-buttons">
         <a href="resume.pdf" class="btn" download="Priyanshu_Kumar_Ojha_Resume.pdf"><i class="fas fa-download"></i> Download Resume</a>
@@ -170,22 +144,52 @@
     <div class="stat-divider"></div>
     <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1775">0</span><span class="stat-suffix">+</span></div><span class="stat-label">LeetCode Rating</span></div>
     <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="893" data-decimal="true">0</span></div><span class="stat-label">CGPA / 10</span></div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="886" data-decimal="true">0</span></div><span class="stat-label">CGPA / 10</span></div>
     <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1">0</span></div><span class="stat-label">Internship @ HERE</span></div>
+    <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1">0</span></div><span class="stat-label">@ HERE Technologies</span></div>
   </div>
 
   <section id="about" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-user"></i> About Me</h2>
-    <p>I'm <strong>Priyanshu Kumar Ojha</strong>, a <strong>Java developer</strong> who enjoys solving complex problems and writing clean, reliable code. I work extensively with <strong>core Java, Scala, AWS and REST APIs</strong>, focusing on correctness, performance, and scalability in real-world systems.</p>
-    <p>Currently, I'm working as a <strong>Software Development Engineer Intern at HERE Technologies</strong>, where I contribute to large-scale production workflows, performance optimization, and maintaining data integrity across critical systems.</p>
+    <p>I'm <strong>Priyanshu Kumar Ojha</strong>, a <strong>Java developer</strong> who enjoys solving complex problems and writing clean, reliable code. I work extensively with <strong>core Java, Scala, Apache Spark, AWS and REST APIs</strong>, focusing on correctness, performance, and scalability in real-world systems.</p>
+    <p>Currently, I'm working as a <strong>Software Engineer II at HERE Technologies</strong>, where I design and implement distributed pipelines, concurrency-control mechanisms, and large-scale map processing workflows that power HERE's global mapping platform.</p>
     <p>I have a strong <strong>problem-solving mindset</strong> and actively engage in coding challenges and competitive programming, which helps me design efficient and well-structured solutions.</p>
     <p>I'm also an <strong>AWS Certified Cloud Practitioner</strong> with solid <strong>cloud fundamentals</strong>, giving me a good understanding of scalable architectures and cloud-integrated applications.</p>
   </section>
 
+  <!-- ═══════════════════════════════════════════
+       EXPERIENCE — updated from resume
+       ═══════════════════════════════════════════ -->
   <section id="experience" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-briefcase"></i> Experience</h2>
     <div class="timeline">
+
+      <!-- Software Engineer II -->
+      <div class="timeline-item sr-fadeInScale">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            <div class="timeline-title-group">
+              <h3>Software Engineer II</h3>
+              <span class="company-name"><i class="fas fa-building"></i> HERE Technologies</span>
+            </div>
+            <div class="timeline-meta">
+              <span class="timeline-date"><i class="fas fa-calendar-alt"></i> June 2026 – Present</span>
+              <span class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai, India</span>
+            </div>
+          </div>
+          <div class="timeline-tags">
+            <span>Java</span><span>Apache Spark</span><span>AWS EMR</span><span>Lambda</span><span>Distributed Systems</span>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Designed and implemented an <strong>end-to-end Validation-Repair-Analysis Pipeline</strong> automating data partitioning, repair workflows on EMR Studio &amp; Lambda, and generation of profiling reports, violation summaries, and exception reports — reducing manual QA effort.</li>
+            <li>Designed and implemented a <strong>distributed concurrency-control mechanism (Tile Repair Guard)</strong> to prevent optimistic locking conflicts during parallel Spark execution, improving repair consistency across large-scale map processing workflows.</li>
+            <li>Diagnosed and resolved <strong>10+ production bugs</strong> affecting private map customers by leveraging advanced debugging techniques and validating end-to-end fix correctness through multiple regional runs on EMR Studio.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SDE Intern -->
       <div class="timeline-item sr-fadeInScale">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
@@ -195,11 +199,13 @@
               <span class="company-name"><i class="fas fa-building"></i> HERE Technologies</span>
             </div>
             <div class="timeline-meta">
-              <span class="timeline-date"><i class="fas fa-calendar-alt"></i> June 2025 – Present</span>
+              <span class="timeline-date"><i class="fas fa-calendar-alt"></i> June 2025 – June 2026</span>
               <span class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai, India</span>
             </div>
           </div>
-          <div class="timeline-tags"><span>Java</span><span>JUnit</span><span>Spring Boot</span><span>VisualVM</span><span>Jira</span></div>
+          <div class="timeline-tags">
+            <span>Java</span><span>JUnit</span><span>Spring Boot</span><span>VisualVM</span><span>Jira</span>
+          </div>
           <ul class="timeline-bullets">
             <li>Collaborated with the Map Making Automation Services (MMAS) team to maintain production flows, ensuring <strong>data integrity across millions of map features</strong> in HERE's global mapping pipeline.</li>
             <li>Developed <strong>100+ comprehensive JUnit test cases</strong> for core validation library, ensuring correctness across 40+ validation rules for multiple map features and geographic profiles.</li>
@@ -209,19 +215,81 @@
           </ul>
         </div>
       </div>
+
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════
+       SKILLS — updated from resume
+       ═══════════════════════════════════════════ -->
   <section id="skills" data-bgcolor="#b8dcff" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-code"></i> Skills</h2>
     <div class="skills-grid">
-      <div class="skill-card"><div class="skill-card-icon"><i class="fab fa-java"></i></div><h4>Programming Languages</h4><div class="skill-tags"><span class="skill-tag advanced">Java <em>Advanced</em></span><span class="skill-tag advanced">Kotlin </span><span class="skill-tag intermediate">Python </span><span class="skill-tag intermediate">Scala</span></div></div>
-      <div class="skill-card"><div class="skill-card-icon"><i class="fab fa-aws"></i></div><h4>Cloud & Backend</h4><div class="skill-tags"><span class="skill-tag advanced">AWS Cloud <em>Certified</em></span><span class="skill-tag">Firebase</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Amazon RDS</span><span class="skill-tag">DynamoDB</span><span class="skill-tag">Amazon S3</span></div></div>
-      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-database"></i></div><h4>Databases</h4><div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span></div></div>
-      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-tools"></i></div><h4>Tools & Frameworks</h4><div class="skill-tags"><span class="skill-tag advanced">Jetpack Compose <em>Advanced</em></span><span class="skill-tag">MVVM</span><span class="skill-tag">JUnit</span><span class="skill-tag">Git / GitHub</span><span class="skill-tag">Jira</span><span class="skill-tag">IntelliJ</span><span class="skill-tag">VisualVM</span><span class="skill-tag">AWT / Swing</span></div></div>
-      <div class="skill-card"><div class="skill-card-icon"><i class="fas fa-desktop"></i></div><h4>Operating Systems</h4><div class="skill-tags"><span class="skill-tag"><i class="fab fa-windows"></i> Windows</span><span class="skill-tag"><i class="fab fa-linux"></i> Linux</span></div></div>
-    </div>
-    <div class="relevant-coursework"><h3>Relevant Coursework</h3><p>Data Structures & Algorithms, Machine Learning, Object Oriented Programming, Operating Systems, Computer Networks, Database Management Systems, Software Engineering</p></div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fab fa-java"></i></div>
+        <h4>Programming Languages</h4>
+        <div class="skill-tags">
+          <span class="skill-tag advanced">Java <em>Advanced</em></span>
+          <span class="skill-tag intermediate">Scala</span>
+          <span class="skill-tag intermediate">Kotlin</span>
+          <span class="skill-tag intermediate">Python</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fab fa-aws"></i></div>
+        <h4>Cloud & Big Data</h4>
+        <div class="skill-tags">
+          <span class="skill-tag advanced">AWS Cloud <em>Certified</em></span>
+          <span class="skill-tag">Apache Spark</span>
+          <span class="skill-tag">AWS EMR</span>
+          <span class="skill-tag">Lambda</span>
+          <span class="skill-tag">CloudWatch</span>
+          <span class="skill-tag">SageMaker</span>
+          <span class="skill-tag">API Gateway</span>
+          <span class="skill-tag">Amazon S3</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-database"></i></div>
+        <h4>Databases</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Amazon RDS</span>
+          <span class="skill-tag">DynamoDB</span>
+          <span class="skill-tag">MongoDB</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-tools"></i></div>
+        <h4>Frameworks & Tools</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">JUnit</span>
+          <span class="skill-tag">Git / GitHub / GitLab</span>
+          <span class="skill-tag">Jira</span>
+          <span class="skill-tag">IntelliJ</span>
+          <span class="skill-tag">VisualVM</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-brain"></i></div>
+        <h4>Concepts</h4>
+        <div class="skill-tags">
+          <span class="skill-tag advanced">Data Structures &amp; Algorithms</span>
+          <span class="skill-tag">Distributed Systems</span>
+          <span class="skill-tag">Concurrency</span>
+          <span class="skill-tag">System Design</span>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">Design Patterns</span>
+        </div>
+      </div>
   </section>
 
   <section id="projects" data-bgcolor="#94c8ff" data-textcolor="#0f172a">
