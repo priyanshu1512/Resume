@@ -494,7 +494,7 @@ document.addEventListener('click', e => { const m = document.getElementById('mod
     setTimeout(() => p.remove(), 580);
   }
 
-  // Pause particle spawning when the tab is hidden
+  // Pause particle spawning when the tab is hidden.
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && puffTimer) { clearInterval(puffTimer); puffTimer = null; }
   });
