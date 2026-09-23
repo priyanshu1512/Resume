@@ -177,7 +177,7 @@ h2 {
 }
 h2 i { color: var(--primary); }
 
-/* ── Home ── */
+/* ── Home── */
 #home {
   display: flex; justify-content: space-between; align-items: center;
   gap: 2rem; position: relative; overflow: hidden;
