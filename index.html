@@ -9,7 +9,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container"></div>
+  <div class="container" aria-hidden="true">
+    <span class="stars stars--far"></span>
+    <span class="stars stars--mid"></span>
+    <span class="stars stars--near"></span>
+    <span class="shooting shooting--1"></span>
+    <span class="shooting shooting--2"></span>
+    <span class="shooting shooting--3"></span>
+  </div>
+  <div class="light-veil" aria-hidden="true"></div>
   <div class="scroll-progress"></div>
 
   <!-- ═══ RACING TRACK ═══════════════════════════════════════════ -->
@@ -130,12 +138,12 @@
       <h3>Software Engineer II</h3>
       <p>From India</p>
       <div class="cta-buttons">
-        <a href="resume.pdf" class="btn" download="Priyanshu_Kumar_Ojha_Resume.pdf"><i class="fas fa-download"></i> Download Resume</a>
+        <a href="Priyanshu_Kumar_Ojha_Resume.pdf" class="btn" download><i class="fas fa-download"></i> Download Resume</a>
         <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Me</a>
       </div>
     </div>
-    <div class="profile-pic sr-fadeInScale">
-      <img src="profile.jpg" alt="Priyanshu Kumar Ojha">
+    <div class="profile-pic sr-fadeInScale" data-initials="PO">
+      <img src="profile.jpg" alt="Priyanshu Kumar Ojha" width="280" height="280">
     </div>
   </section>
 
@@ -149,7 +157,7 @@
     <div class="stat-item"><div class="stat-top"><span class="stat-number" data-target="1">0</span></div><span class="stat-label">@ HERE Technologies</span></div>
   </div>
 
-  <section id="about" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
+  <section id="about" data-bgcolor="#f2f7ff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-user"></i> About Me</h2>
     <p>I'm <strong>Priyanshu Kumar Ojha</strong>, a <strong>Java developer</strong> who enjoys solving complex problems and writing clean, reliable code. I work extensively with <strong>core Java, Scala, Apache Spark, AWS and REST APIs</strong>, focusing on correctness, performance, and scalability in real-world systems.</p>
     <p>Currently, I'm working as a <strong>Software Engineer II at HERE Technologies</strong>, where I design and implement distributed pipelines, concurrency-control mechanisms, and large-scale map processing workflows that power HERE's global mapping platform.</p>
@@ -160,7 +168,7 @@
   <!-- ═══════════════════════════════════════════
        EXPERIENCE — updated from resume
        ═══════════════════════════════════════════ -->
-  <section id="experience" data-bgcolor="#d0eaff" data-textcolor="#0f172a">
+  <section id="experience" data-bgcolor="#ecf3ff" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-briefcase"></i> Experience</h2>
     <div class="timeline">
 
@@ -222,7 +230,7 @@
   <!-- ═══════════════════════════════════════════
        SKILLS — updated from resume
        ═══════════════════════════════════════════ -->
-  <section id="skills" data-bgcolor="#b8dcff" data-textcolor="#0f172a">
+  <section id="skills" data-bgcolor="#e4eefe" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-code"></i> Skills</h2>
     <div class="skills-grid">
 
@@ -292,7 +300,7 @@
       </div>
   </section>
 
-  <section id="projects" data-bgcolor="#94c8ff" data-textcolor="#0f172a">
+  <section id="projects" data-bgcolor="#dbe8fd" data-textcolor="#0f172a">
     <h2 class="sr-slideInLeft"><i class="fas fa-project-diagram"></i> Projects</h2>
     <div class="projects-container">
       <div class="project-box sr-fadeInScale" onclick="showProjectDetails('Chatterly')"><img src="chatterly-image.png" alt="Chatterly App" class="project-image"><h3>Chat Application</h3><div class="tags"><span>Kotlin</span><span>Firebase</span><span>MVVM</span></div><p>Built a Kotlin-based chat app using Jetpack Compose and MVVM architecture for real-time messaging with 99.5% uptime.</p><a href="https://github.com/priyanshu1512/kotlinappchatterly" class="github-btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> View on GitHub</a></div>
@@ -304,7 +312,7 @@
     </div>
   </section>
 
-  <section id="certifications" data-bgcolor="#6aaff5" data-textcolor="#0f172a">
+  <section id="certifications" data-bgcolor="#d2e1fc" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-certificate"></i> Certifications</h2>
     <div class="certifications-container">
       <div class="certification-box" onclick="showCertificationDetails('aws-cloud-practitioner')"><span class="clickable-icon"></span><div class="cert-icon"><i class="fab fa-aws"></i></div><h3>AWS Certified Cloud Practitioner</h3><a href="https://www.credly.com/badges/315ef25b-aaf1-4d33-ab46-0f6ffa117742/public_url" target="_blank" class="view-certificate">View Certificate</a></div>
@@ -313,7 +321,7 @@
     </div>
   </section>
 
-  <section id="leetcode" data-bgcolor="#4090e8" data-textcolor="#ffffff">
+  <section id="leetcode" data-bgcolor="#c8dafb" data-textcolor="#0f172a">
     <h2 class="sr-rotateIn"><i class="fas fa-code"></i> LeetCode Profile</h2>
     <div class="leetcode-container"><div class="leetcode-box"><div class="leetcode-stats">
       <h3>priyanshuplays</h3>
@@ -326,7 +334,7 @@
     </div></div></div>
   </section>
 
-  <section id="contact" data-bgcolor="#1a6dd4" data-textcolor="#ffffff">
+  <section id="contact" data-bgcolor="#bed3fa" data-textcolor="#0f172a">
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <div class="contact-grid">
       <a href="mailto:priyanshuojha485@gmail.com" class="contact-card"><i class="fas fa-envelope"></i><span>priyanshuojha485@gmail.com</span></a>
@@ -346,11 +354,33 @@
   </div>
 
   <div class="chat-container">
-    <div class="chat-icon" id="chatIcon"><i class="fas fa-comment"></i></div>
-    <div class="chat-box" id="chatBox">
-      <div class="chat-header"><h3>Portfolio Assistant</h3><button class="minimize-btn" id="minimizeChat"><i class="fas fa-minus"></i></button></div>
-      <div class="chat-messages" id="chatMessages"><div class="message bot">Hi! I'm Priyanshu's portfolio assistant. Ask me about his skills, projects, or experience!</div></div>
-      <div class="chat-input"><input type="text" id="userInput" placeholder="Type your question..."><button id="sendMessage"><i class="fas fa-paper-plane"></i></button></div>
+    <button class="chat-icon" id="chatIcon" aria-label="Open portfolio assistant" aria-expanded="false" aria-controls="chatBox">
+      <i class="fas fa-comment" aria-hidden="true"></i>
+    </button>
+    <div class="chat-box" id="chatBox" role="dialog" aria-label="Portfolio assistant">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span class="chat-avatar" aria-hidden="true">PO</span>
+          <div>
+            <h3>Portfolio Assistant</h3>
+            <span class="chat-status">Ask me anything</span>
+          </div>
+        </div>
+        <button class="minimize-btn" id="minimizeChat" aria-label="Close assistant"><i class="fas fa-times" aria-hidden="true"></i></button>
+      </div>
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+        <div class="message bot">Hi! I'm Priyanshu's portfolio assistant. Ask me about his experience, skills, projects or how to get in touch.</div>
+      </div>
+      <div class="chat-chips" id="chatChips">
+        <button type="button" data-q="What is his experience?">Experience</button>
+        <button type="button" data-q="What are his skills?">Skills</button>
+        <button type="button" data-q="Show me his projects">Projects</button>
+        <button type="button" data-q="How do I contact him?">Contact</button>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your question..." autocomplete="off" aria-label="Your question">
+        <button id="sendMessage" aria-label="Send message"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
 
