@@ -310,7 +310,7 @@ body.dark-theme .github-btn:hover { background: #2ea043; }
 .view-certificate { display: inline-block; padding: 0.45rem 1rem; background: var(--primary); color: white; text-decoration: none; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; transition: all var(--transition); }
 .view-certificate:hover { background: var(--primary-dark); transform: translateY(-1px); }
 
-/* ── LeetCode ── */
+/* ── LeetCode  ── */
 #leetcode { background: var(--bg-card); }
 .leetcode-container { max-width: 900px; margin: 0 auto; }
 .leetcode-stats { text-align: center; }
